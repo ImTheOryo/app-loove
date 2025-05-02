@@ -3,12 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use Exception;
+use App\Services\JwtService;
 
 class UserRepository extends BaseRepository
 {
 
-  public function log_in (string $email, string $password)
+  public function log_in (string $email, string $password): void
   {
     $admin = false;
     if (strpos($email, $_ENV['DOMAIN_ADMIN_MAIL']) !== false) {
@@ -24,31 +24,33 @@ class UserRepository extends BaseRepository
     }
 
     if (empty($result)) {
-      response_json(false, "incorrect mail or password");
+      response_json(401, "incorrect mail or password");
     } else {
       if (password_verify($password, $result["password"])) {
-
+        $jwt = new JwtService();
         if ($admin) {
-          response_json(true, 'admin_auth');
+
+          $token = $jwt -> generate(['status' => 'admin']);
         } else {
-          response_json(true, 'user_auth');
+          $token = $jwt -> generate(['status' => 'user']);
         }
+        response_json(200, "Hello", $token);
       }
 
-      response_json(false, 'incorrect mail or password');
+      response_json(401, 'incorrect mail or password');
     }
   }
 
-  public function get_all_users ()
+  public function get_all_users (): void
   {
     $result = $this
       -> query("SELECT id, name, mail FROM user")
       -> fetchAll();
 
     if (empty($result)) {
-      response_json(false, "no users");
+      response_json(204, "no users");
     } else {
-      response_json(true, $result);
+      response_json(200, $result);
     }
   }
 

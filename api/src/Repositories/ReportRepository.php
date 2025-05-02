@@ -12,10 +12,9 @@ class ReportRepository extends BaseRepository
       -> fetchAll();
 
     if (empty($result)) {
-      response_json(false, "No reports found.");
+      response_json(204, "No reports found.");
     }
-
-    response_json(true, $result);
+    response_json(200, $result);
   }
 
 }
