@@ -14,6 +14,6 @@ $dotenv -> safeLoad();
 
 $routeur = new Routeur();
 $routeur -> addRoute(['POST'], '/login', UsersController::class, 'login');
-$routeur -> addRoute(['GET'], '/users', UsersController::class, 'get_all_users');
+$routeur -> addRoute(['GET'], '/users', UsersController::class, 'get_all_users', $_ENV['JWT_ADMIN_KEY']);
 
 new Kernel($routeur);

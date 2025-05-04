@@ -1,8 +1,11 @@
 <?php
 
-function response_json (int $http_code, array|string $data, string|null $token = null)
+function response_json (int $http_code, array|string|null $body = null, string|null $token = null)
 {
-  $response = ["data" => $data];
+  $response = [];
+  if (isset($body)) {
+    $response["body"] = $body;
+  }
   if (isset($token)) {
     $response["token"] = $token;
   }

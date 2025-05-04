@@ -29,12 +29,11 @@ class UserRepository extends BaseRepository
       if (password_verify($password, $result["password"])) {
         $jwt = new JwtService();
         if ($admin) {
-
-          $token = $jwt -> generate(['status' => 'admin']);
+          $token = $jwt -> generate(['status' => $_ENV['JWT_ADMIN_KEY']]);
         } else {
-          $token = $jwt -> generate(['status' => 'user']);
+          $token = $jwt -> generate(['status' => $_ENV['JWT_USER_KEY']]);
         }
-        response_json(200, "Hello", $token);
+        response_json(200, $result["id"], $token);
       }
 
       response_json(401, 'incorrect mail or password');
