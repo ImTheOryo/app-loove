@@ -24,6 +24,39 @@
     font-family: Poppins-Bold, sans-serif;
 }
 
+@font-face {
+    font-family: 'Quicksand';
+    src: url('/src/assets/font/Quicksand-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-quicksand-regular {
+    font-family: Quicksand, sans-serif;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/src/assets/font/Nunito-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-nunito-regular {
+    font-family: Nunito, sans-serif;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/src/assets/font/Nunito-VariableFont_wght.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.font-nunito-bold {
+    font-family: Nunito, sans-serif;
+}
+
 .bg-my-red {
     background-color: rgba(233, 64, 87, 1);
 }

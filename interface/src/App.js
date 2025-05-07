@@ -1,23 +1,35 @@
-import {Link} from "react-router";
+import {createBrowserRouter, RouterProvider,} from 'react-router';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import PrivateRoute from './services/PrivateRouteServce';
 
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Home />,
+        children: [
+        ],
+    },
+    {
+        path: "/connexion",
+        element: <Login />,
+        children: [
+        ],
+    },
+    {
+        path: "/administration/tableau-de-bord",
+        element: <PrivateRoute allowedRoles={["admin"]}>
 
-function App () {
+        </PrivateRoute>
+    }
+]);
 
-    return (
-            <div className="min-h-screen w-full bg-[url(/src/assets/images/7f6e8a7b-01de-4f4e-92c8-bd83572be6e3.webp)] bg-center bg-cover">
-                <div className=" min-h-screen w-full bg-black bg-opacity-40">
-                    <div className={ "flex flex-col justify-center items-center"}>
-                        <span style={{fontFamily:"Poppins-Bold, sans-serif"}} className="text-2xl text-center items-center text-white mx-auto mt-52">
-                            Love is just a beat away™
-                        </span>
-                        <Link to="/" className="primary-btn mt-56">Créer un compte</Link>
-                        <Link to="/connexion" className="secondary-btn mt-[21px] ">Connexion</Link>
-
-
-                    </div>
-                </div>
-            </div>
-  );
-}
-
-export default App;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+);

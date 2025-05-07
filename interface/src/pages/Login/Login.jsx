@@ -1,16 +1,26 @@
-import {Link} from "react-router";
-import {login} from "../../services/authService";
+import {ToastContainer, toast} from "react-toastify";
+import {Link, useNavigate} from "react-router";
+import {login} from "../../services/AuthService";
 
 function Login () {
-
+    const navigate = useNavigate();
+    const place = "tableau-de-bord";
     const handle_submit = async (event) => {
         const form = document.getElementById("login-form");
         event.preventDefault();
         if (!form.checkValidity()){
             form.reportValidity();
         }
-        await login(form);
-
+        let res = await login(form);
+        if (res.status === 401) {
+            toast.error("Mail ou mot de passe incorrect");
+        } else if (res.status === 200) {
+            res = await res.json();
+            localStorage.clear();
+            localStorage.setItem("id", res.body[1].id);
+            localStorage.setItem("token", res.token);
+            res.body[0].status === "admin" ? navigate(`/administrateur/${place}`) : navigate("/");
+        }
     }
 
     return (
@@ -45,6 +55,7 @@ function Login () {
                     </form>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }
