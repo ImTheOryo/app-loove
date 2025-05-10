@@ -25,14 +25,25 @@
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: 'Quicksand-Regular';
     src: url('/src/assets/font/Quicksand-VariableFont_wght.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 .font-quicksand-regular {
-    font-family: Quicksand, sans-serif;
+    font-family: Quicksand-Regular, sans-serif;
+}
+
+@font-face {
+    font-family: 'Quicksand-Bold';
+    src: url('/src/assets/font/Quicksand-VariableFont_wght.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.font-quicksand-bold {
+    font-family: Quicksand-Bold, sans-serif;
 }
 
 @font-face {

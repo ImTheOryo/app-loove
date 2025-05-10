@@ -1,10 +1,12 @@
 import {ToastContainer, toast} from "react-toastify";
 import {Link, useNavigate} from "react-router";
 import {login} from "../../services/AuthService";
+import "./Login.css"
 
 function Login () {
+    document.title = "Harmony | Connexion";
+
     const navigate = useNavigate();
-    const place = "tableau-de-bord";
     const handle_submit = async (event) => {
         const form = document.getElementById("login-form");
         event.preventDefault();
@@ -19,14 +21,14 @@ function Login () {
             localStorage.clear();
             localStorage.setItem("id", res.body[1].id);
             localStorage.setItem("token", res.token);
-            res.body[0].status === "admin" ? navigate(`/administrateur/${place}`) : navigate("/");
+            res.body[0].status === "admin" ? navigate(`/administrateur/tableau-de-bord`) : navigate("/");
         }
     }
 
     return (
         <div className="min-h-screen w-full bg-[url(/src/assets/images/7f6e8a7b-01de-4f4e-92c8-bd83572be6e3.webp)] bg-center bg-cover">
             <div className=" min-h-screen w-full bg-black bg-opacity-40 flex flex-col justify-center items-center">
-                <div className="blur-bg w-[88%] h-[380px] ">
+                <div className="blur-bg w-[88%] h-[380px]" id="blur-bg">
                     <form id="login-form">
 
                         <div className="mt-16 flex flex-col">

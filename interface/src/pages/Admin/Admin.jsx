@@ -57,11 +57,11 @@ function Admin() {
                         <TbUsersGroup className="text-4xl"/>
                         <p>Utilisateurs</p>
                     </Link>
-                    <Link to="" className="admin-btn">
+                    <Link to="/administrateur/moderation" className="admin-btn">
                         <GoShieldLock className="text-4xl"/>
                         <p>Modération</p>
                     </Link>
-                    <Link to="" className="admin-btn">
+                    <Link to="/administrateur/monetisation" className="admin-btn">
                         <TbReportMoney className="text-4xl"/>
                         <p>Monétisation</p>
                     </Link>
