@@ -14,3 +14,8 @@ function response_json (int $http_code, array|string|null $body = null, string|n
   echo json_encode($response);
   exit();
 }
+
+function clean_string(string $value): string
+{
+  return trim(htmlspecialchars($value, ENT_QUOTES, 'UTF-8'));
+}

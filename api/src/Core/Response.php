@@ -6,11 +6,10 @@ class Response
 {
 
   public function __construct (
-    private int    $code,
+    private int $code,
     private string $body,
   )
   {
-
   }
 
   public function getCode (): int

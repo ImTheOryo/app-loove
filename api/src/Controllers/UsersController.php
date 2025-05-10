@@ -10,8 +10,8 @@ class UsersController extends BaseController
   public function login ()
   {
 
-    $email = $_POST['mail'];
-    $password = $_POST['password'];
+    $email = clean_string($_POST['mail']);
+    $password = clean_string($_POST['password']);
 
     $repository = new UserRepository();
 

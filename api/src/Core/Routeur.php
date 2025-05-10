@@ -16,7 +16,7 @@ class Routeur
   {
   }
 
-  public function addRoute (string|array $methods, string $path, string $controller, string $action, $restriction = "")
+  public function addRoute (string|array $methods, string $path, string $controller, string $action, $restriction = "none")
   {
     if (is_string($methods)) {
       $methods = [$methods];
@@ -33,11 +33,13 @@ class Routeur
     foreach ($this -> routes as $route) {
       if ($route -> isValidFor($request)) {
 
-        if ($route -> getRestriction() != "") {
+        if ($route -> getRestriction() != "none") {
           if (isset(getallheaders()['Authorization'])) {
             $jwt = new JwtService();
             $header = $jwt -> verify(getallheaders()['Authorization']);
-            if ($header -> status !== $route -> getRestriction()) {
+            if ($header -> status === $_ENV['JWT_ADMIN_KEY']) {
+              break;
+            } else if ($header -> status !== $route -> getRestriction()) {
               response_json(403);
             }
           } else {

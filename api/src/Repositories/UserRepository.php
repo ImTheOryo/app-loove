@@ -11,7 +11,7 @@ class UserRepository extends BaseRepository
   public function log_in (string $email, string $password): void
   {
     $admin = false;
-    if (strpos($email, $_ENV['DOMAIN_ADMIN_MAIL']) !== false) {
+    if (str_contains($email, $_ENV['DOMAIN_ADMIN_MAIL'])) {
       $admin = true;
 
       $result = $this
@@ -33,9 +33,8 @@ class UserRepository extends BaseRepository
         } else {
           $token = $jwt -> generate(['status' => $_ENV['JWT_USER_KEY']]);
         }
-        response_json(200, $result["id"], $token);
+        response_json(200, [['status' => 'admin'], ['id' => $result['id']]], $token);
       }
-
       response_json(401, 'incorrect mail or password');
     }
   }
