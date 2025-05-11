@@ -1,0 +1,109 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@font-face {
+    font-family: 'Poppins-Regular';
+    src: url('/src/assets/font/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-poppins-regular {
+    font-family: Poppins-Regular, sans-serif;
+}
+
+@font-face {
+    font-family: 'Poppins-Bold';
+    src: url('/src/assets/font/Poppins-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.font-poppins-bold {
+    font-family: Poppins-Bold, sans-serif;
+}
+
+@font-face {
+    font-family: 'Quicksand-Regular';
+    src: url('/src/assets/font/Quicksand-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-quicksand-regular {
+    font-family: Quicksand-Regular, sans-serif;
+}
+
+@font-face {
+    font-family: 'Quicksand-Bold';
+    src: url('/src/assets/font/Quicksand-VariableFont_wght.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.font-quicksand-bold {
+    font-family: Quicksand-Bold, sans-serif;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/src/assets/font/Nunito-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-nunito-regular {
+    font-family: Nunito, sans-serif;
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/src/assets/font/Nunito-VariableFont_wght.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.font-nunito-bold {
+    font-family: Nunito, sans-serif;
+}
+
+.bg-my-red {
+    background-color: rgba(233, 64, 87, 1);
+}
+
+.text-color-my-red {
+    color: rgba(233, 64, 87, 1);
+}
+
+.primary-btn {
+    @apply flex items-center justify-center text-center text-white bg-my-red rounded-[15px] w-[295px] h-[56px];
+    background-color: rgba(233, 64, 87, 1);
+    font-family: Poppins-Regular, sans-serif;
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: white;
+    font-family: Poppins-Bold, sans-serif;
+    color: rgba(233, 64, 87, 1);
+    border: 1px solid rgba(233, 64, 87, 1);
+}
+
+.secondary-btn {
+    @apply flex items-center justify-center text-center bg-white rounded-[15px] text-color-my-red w-[295px] h-[56px];
+    font-family: Poppins-Regular, sans-serif;
+}
+
+.secondary-btn:hover {
+    background-color: rgba(233, 64, 87, 1);
+    font-family: Poppins-Bold, sans-serif;
+    color: white;
+}
+
+.blur-bg {
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 0px 30px 40px rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(7.5px);
+}

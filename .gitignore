@@ -1,0 +1,16 @@
+
+# API FOLDER (PHP API)
+api/.idea/*
+api/.env
+api/vendor/
+api/composer.lock
+
+
+# INTERFACE FOLDER (REACT)
+interface/.idea/*
+interface/node_modules/*
+interface/README.md
+interface/package-lock.json
+
+# OTHER
+.idea/*

@@ -1,0 +1,50 @@
+.admin-btn{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+
+    margin-bottom: 10px;
+    @apply w-[72%];
+    justify-content: space-between;
+    align-items: center;
+    color: #A58AA5;
+    font-family: Nunito, sans-serif;
+    font-weight: normal;
+    padding: 20px;
+    border-radius: 15px;
+}
+.admin-btn p {
+    grid-column: 2/5;
+    text-align: left;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.admin-btn:hover {
+    background-color: rgba(233, 64, 87, 1);
+    color: white;
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+}
+
+.text-grid-2-3 {
+    grid-column: 1;
+}
+
+.profile-grid-3 {
+    grid-column: 5;
+}
+
+.container-outlet {
+    @apply bottom-[15px] right-[15px] absolute bg-white w-[80%] h-[85%] rounded-[20px];
+    box-shadow: 0 0 25px 1px rgba(0, 0, 0, 0.25);
+}

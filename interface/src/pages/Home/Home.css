@@ -1,0 +1,5 @@
+@media screen and (min-width: 1024px){
+    #catch-prase {
+        @apply text-5xl
+    }
+}
