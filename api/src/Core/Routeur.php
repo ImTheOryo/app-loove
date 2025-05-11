@@ -10,77 +10,77 @@ use App\Controllers\BaseController;
 class Routeur
 {
 
-  public function __construct (
-    private array $routes = []
-  )
-  {
-  }
-
-  public function addRoute (string|array $methods, string $path, string $controller, string $action, $restriction = "none")
-  {
-    if (is_string($methods)) {
-      $methods = [$methods];
+    public function __construct(
+        private array $routes = []
+    )
+    {
     }
 
-    $this -> routes[] = new Route($path, $controller, $action, $methods, $restriction);
-  }
+    public function addRoute(string|array $methods, string $path, string $controller, string $action, $restriction = "none")
+    {
+        if (is_string($methods)) {
+            $methods = [$methods];
+        }
 
-  public function request (Request $request): Response
-  {
-    $response = new Response(404, "Route not found");
+        $this->routes[] = new Route($path, $controller, $action, $methods, $restriction);
+    }
 
-    /** @var Route $route */
-    foreach ($this -> routes as $route) {
-      if ($route -> isValidFor($request)) {
+    public function request(Request $request): Response
+    {
+        $response = new Response(404, "Route not found");
 
-        if ($route -> getRestriction() != "none") {
-          if (isset(getallheaders()['Authorization'])) {
-            $jwt = new JwtService();
-            $header = $jwt -> verify(getallheaders()['Authorization']);
-            if ($header -> status === $_ENV['JWT_ADMIN_KEY']) {
-              break;
-            } else if ($header -> status !== $route -> getRestriction()) {
-              response_json(403);
+        /** @var Route $route */
+        foreach ($this->routes as $route) {
+            if ($route->isValidFor($request)) {
+
+                if ($route->getRestriction() != "none") {
+                    if (isset(getallheaders()['Authorization'])) {
+                        $jwt = new JwtService();
+                        $header = $jwt->verify(getallheaders()['Authorization']);
+                        if ($header->status === $_ENV['JWT_ADMIN_KEY']) {
+                            break;
+                        } else if ($header->status !== $route->getRestriction()) {
+                            response_json(403);
+                        }
+                    } else {
+                        response_json(401);
+                    }
+                }
+
+                $reflected_controller = new ReflectionClass($route->getController());
+
+                $exploded_uri = explode('/', trim($request->uri));
+                $indexes = $this->indexOfParams($route->getPath());
+                $params = array_filter($exploded_uri, function ($v, $k) use ($indexes) {
+                    return in_array($k, $indexes, true);
+                }, ARRAY_FILTER_USE_BOTH);
+
+                /** @var BaseController $controller */
+                $controller = $reflected_controller->newInstance();
+                $controller->setRequest($request);
+
+                try {
+                    response_json(200, call_user_func_array([$controller, $route->getAction()], $params));
+                } catch (Exception $e) {
+                    response_json(404, $e->getMessage());
+                }
             }
-          } else {
-            response_json(401);
-          }
         }
 
-        $reflected_controller = new ReflectionClass($route -> getController());
+        return $response;
+    }
 
-        $exploded_uri = explode('/', trim($request -> uri));
-        $indexes = $this -> indexOfParams($route -> getPath());
-        $params = array_filter($exploded_uri, function ($v, $k) use ($indexes) {
-          return in_array($k, $indexes, true);
-        }, ARRAY_FILTER_USE_BOTH);
+    private function indexOfParams(string $path): array
+    {
+        $exploded_path = explode('/', trim($path));
+        $indexes = [];
 
-        /** @var BaseController $controller */
-        $controller = $reflected_controller -> newInstance();
-        $controller -> setRequest($request);
-
-        try {
-          response_json(200, call_user_func_array([$controller, $route -> getAction()],$params));
-        } catch (Exception $e) {
-          response_json(404, $e -> getMessage());
+        foreach ($exploded_path as $key => $value) {
+            if (str_contains($value, '{') && str_contains($value, '}')) {
+                $indexes[] = $key;
+            }
         }
-      }
+        return $indexes;
     }
-
-    return $response;
-  }
-
-  private function indexOfParams (string $path): array
-  {
-    $exploded_path = explode('/', trim($path));
-    $indexes = [];
-
-    foreach ($exploded_path as $key => $value) {
-      if (str_contains($value, '{') && str_contains($value, '}')) {
-        $indexes[] = $key;
-      }
-    }
-    return $indexes;
-  }
 
 }

@@ -7,15 +7,15 @@ use App\Core\Request;
 abstract class BaseController
 {
 
-  protected Request $request;
+    protected Request $request;
 
-  public function setRequest (Request $request)
-  {
-    $this -> request = $request;
-  }
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+    }
 
-  protected function getRequest (): Request
-  {
-    return $this -> request;
-  }
+    protected function getRequest(): Request
+    {
+        return $this->request;
+    }
 }
