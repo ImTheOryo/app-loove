@@ -11,8 +11,7 @@ import {useEffect} from "react";
 
 function Admin() {
     const location = useLocation();
-
-    const setTitle = () => {
+    const changeTitle = () => {
         const raw = location.pathname.replace("/administrateur/", "");
         const formatted = raw
             .replace(/-/g, ' ')
@@ -22,7 +21,7 @@ function Admin() {
     };
 
     useEffect(() => {
-        setTitle();
+        changeTitle();
     }, [location.pathname]);
     return (
         <div className="bg-[#FAFAFA]">

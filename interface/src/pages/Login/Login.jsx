@@ -21,7 +21,7 @@ function Login () {
             localStorage.clear();
             localStorage.setItem("id", res.body[1].id);
             localStorage.setItem("token", res.token);
-            res.body[0].status === "admin" ? navigate(`/administrateur/tableau-de-bord`) : navigate("/");
+            res.body[0].status === "admin" ? navigate(`/administrateur/tableau-de-bord`) : navigate("/decouvertes");
         }
     }
 
