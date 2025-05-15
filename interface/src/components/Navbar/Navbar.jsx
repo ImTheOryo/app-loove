@@ -10,7 +10,7 @@ function Navbar () {
     return (
         <div>
             <div id="user-navbar">
-                <Link to="/decouvertes" id="navbar-grid-1" className="selected-navbar">
+                <Link to="/decouvertes" id="navbar-grid-1" className="">
                     <GoHome className="text-[24px] "/>
                 </Link>
 

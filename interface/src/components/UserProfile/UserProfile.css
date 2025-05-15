@@ -1,0 +1,109 @@
+#user-profile {
+    @apply w-[300px] h-[450px] fixed rounded-[15px] ;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#user-profile img {
+    @apply w-full h-full rounded-[20px];
+}
+
+#user-profile div {
+    @apply w-full fixed bottom-0 rounded-b-[15px];
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 30px 40px rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(7.5px);
+}
+
+#user-profile h2 {
+    @apply text-white text-3xl font-bold mb-1 mr-2 pl-2 pt-2;
+}
+
+#user-profile p {
+    @apply text-white mb-2 pl-2;
+}
+
+#user-profile-expand {
+    @apply fixed bottom-5 right-5 border-2 border-white rounded-[10px] p-1;
+}
+
+#user-profile-expanded {
+    @apply w-[80%] h-[450px] rounded-t-[25px];
+    overflow-y: scroll ;
+    margin: 28% auto auto auto ;
+    box-shadow: 8px 0 40px 0 rgba(0, 0, 0, 0.37);
+}
+
+#user-profile-expanded-img {
+    @apply w-full mx-auto;
+}
+
+#user-profile-expanded-img img {
+    @apply w-full h-full object-cover object-center;
+}
+
+#user-profile-expanded-div {
+    @apply w-full h-max pb-5 bg-white m-auto rounded-[25px] ;
+}
+
+#user-profile-expanded-content {
+    @apply w-[90%] m-auto;
+}
+
+#user-profile-expanded-content article {
+    @apply mb-7;
+}
+
+#user-profile-expanded-content h2 {
+    @apply text-[28px] font-bold;
+}
+
+#user-profile-expanded-content h3 {
+    @apply font-semibold flex items-center text-[20px];
+}
+
+#user-profile-expanded-content p {
+    @apply text-[16px];
+    color: rgba(0, 0, 0, 0.70);
+}
+
+#user-profile-expanded-info {
+    @apply mt-5;
+}
+
+#user-profile-expanded-hobbies-tag {
+    @apply flex-wrap flex w-full;
+}
+
+#user-profile-expanded-gallery-img {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 7px;
+    grid-row-gap: 7px;
+}
+
+#user-profile-expanded-gallery img {
+    @apply w-full h-full object-cover object-center rounded-[10px];
+}
+
+#gallery-img-1 {
+    grid-area: 1 / 1 / 3 / 4;
+}
+
+#gallery-img-2 {
+    grid-area: 1 / 4 / 3 / 7;
+}
+
+#gallery-img-3 {
+    grid-area: 3 / 1 / 4 / 3;
+}
+
+#gallery-img-4 {
+    grid-area: 3 / 3 / 4 / 5;
+}
+
+#gallery-img-5 {
+    grid-area: 3 / 5 / 4 / 7;
+}
