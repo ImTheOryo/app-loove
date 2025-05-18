@@ -29,10 +29,16 @@
 }
 
 #user-profile-expanded {
-    @apply w-[80%] h-[450px] rounded-t-[25px];
+    @apply w-full h-screen;
     overflow-y: scroll ;
-    margin: 28% auto auto auto ;
     box-shadow: 8px 0 40px 0 rgba(0, 0, 0, 0.37);
+}
+
+#user-btn-unexpanded {
+    @apply absolute  bg-white top-3 left-3;
+    border: 1px solid #E94057;
+    border-radius: 5px;
+    z-index: 10;
 }
 
 #user-profile-expanded-img {
@@ -44,7 +50,7 @@
 }
 
 #user-profile-expanded-div {
-    @apply w-full h-max pb-5 bg-white m-auto rounded-[25px] ;
+    @apply w-full h-max pb-28 bg-white m-auto rounded-[25px];
 }
 
 #user-profile-expanded-content {
@@ -60,7 +66,7 @@
 }
 
 #user-profile-expanded-content h3 {
-    @apply font-semibold flex items-center text-[20px];
+    @apply font-semibold flex items-center text-[20px] mb-2;
 }
 
 #user-profile-expanded-content p {

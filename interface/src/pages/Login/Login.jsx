@@ -1,19 +1,20 @@
 import {ToastContainer, toast} from "react-toastify";
 import {Link, useNavigate} from "react-router";
-import {login} from "../../services/AuthService";
+import {AuthService} from "../../services/AuthService";
 import "./Login.css"
 
 function Login () {
     document.title = "Harmony | Connexion";
-
     const navigate = useNavigate();
+
     const handle_submit = async (event) => {
         const form = document.getElementById("login-form");
         event.preventDefault();
         if (!form.checkValidity()){
             form.reportValidity();
         }
-        let res = await login(form);
+        const auth = new AuthService();
+        let res = await auth.login(form);
         if (res.status === 401) {
             toast.error("Mail ou mot de passe incorrect");
         } else if (res.status === 200) {

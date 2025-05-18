@@ -3,9 +3,9 @@ import { FaHeart } from "react-icons/fa";
 import { TbMessageCircleShare } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 
-function ActionButtons() {
+function ActionButtons({showExtendProfile}) {
     return (
-        <div id="action-buttons">
+        <div id="action-buttons" style={{bottom: showExtendProfile ? "190px" : "105px", opacity: showExtendProfile ? 0.85 : 1}} >
             <button id="skip-btn">
                 <IoClose/>
             </button>
