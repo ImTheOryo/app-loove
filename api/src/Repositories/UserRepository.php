@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
 use App\Services\JwtService;
 
 class UserRepository extends BaseRepository
@@ -30,9 +29,11 @@ class UserRepository extends BaseRepository
                 $jwt = new JwtService();
                 if ($admin) {
                     $token = $jwt->generate(['status' => $_ENV['JWT_ADMIN_KEY']]);
+                    session_start();
                     response_json(200, [['status' => 'admin'], ['id' => $result['id']]], $token);
                 } else {
                     $token = $jwt->generate(['status' => $_ENV['JWT_USER_KEY']]);
+                    session_start();
                     response_json(200, [['status' => 'user'], ['id' => $result['id']]], $token);
                 }
             }
