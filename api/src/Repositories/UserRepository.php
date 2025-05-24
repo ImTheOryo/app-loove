@@ -54,5 +54,41 @@ class UserRepository extends BaseRepository
         }
     }
 
+    public function get_discovery (int $id): void {
 
+        $result = [];
+
+        $users = $this
+            ->query("SELECT `id`, `first_name`, `age`, `current`, `biography`, `search_type_id`  FROM user WHERE id != :id")
+            ->fetchAll(['id' => $id])
+        ;
+
+        empty($users) ? response_json(204, "no users") : null;
+
+        foreach ($users as $user) {
+            $images = $this
+                ->query("SELECT image_name, image_primary FROM image WHERE user_id = :id")
+                ->fetchAll(['id' => $user['id']])
+            ;
+
+            $hobbies = $this
+                ->query("SELECT h.hobby FROM user_hobby AS uh LEFT JOIN hobby AS h ON uh.hobby_id = h.id WHERE user_id = :id")
+                ->fetchAll(['id' => $user['id']])
+            ;
+
+            $musics = $this
+                ->query("SELECT q.question, qa.answer FROM question_answer AS qa LEFT JOIN question AS q on q.id = qa.id_question WHERE id_user = :id")
+                ->fetchAll(['id' => $user['id']])
+            ;
+
+            $result[] = [
+                'infos' => $user,
+                'images' => $images,
+                'hobbies' => $hobbies,
+                'musics' => $musics,
+            ];
+        }
+
+        response_json(200, $result);
+    }
 }

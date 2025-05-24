@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Repositories\UserRepository;
+use Exception;
 
 class UsersController extends BaseController
 {
@@ -10,8 +11,12 @@ class UsersController extends BaseController
     public function login()
     {
 
-        $email = clean_string($_POST['mail']);
-        $password = clean_string($_POST['password']);
+        try {
+            $email = clean_string($_POST['mail']);
+            $password = clean_string($_POST['password']);
+        } catch (Exception $e) {
+            response_json(400, $e->getMessage());
+        }
 
         $repository = new UserRepository();
 
@@ -23,6 +28,17 @@ class UsersController extends BaseController
     {
         $repository = new UserRepository();
         $repository->get_all_users();
+    }
+
+    public function get_discovery(string $user_id) {
+        try {
+        } catch (Exception $e) {
+            response_json(400, $e->getMessage());
+        }
+
+        $repository = new UserRepository();
+
+        $repository->get_discovery($user_id);
     }
 
 }
