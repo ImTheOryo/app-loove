@@ -41,7 +41,8 @@
     height: 24px;
     border-radius: 50%;
     background: #E94057;
-    box-shadow: 0 0 0 6px #f3f3f3;
+    border: 2px solid white;
+    box-shadow: 0 0 10px 0.5px rgb(233, 64, 87, 0.5);
     cursor: pointer;
     -webkit-appearance: none;
 }
@@ -52,7 +53,8 @@
     height: 24px;
     border-radius: 50%;
     background: #E94057;
-    box-shadow: 0 0 0 6px white;
+    border: 2px solid white;
+    box-shadow: 0 0 10px 0.5px rgb(233, 64, 87, 0.5);
     cursor: pointer;
 }
 

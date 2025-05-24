@@ -1,4 +1,4 @@
-import {ToastContainer, toast} from "react-toastify";
+import {toast} from "react-toastify";
 import {Link, useNavigate} from "react-router";
 import {AuthService} from "../../services/AuthService";
 import "./Login.css"
@@ -12,18 +12,20 @@ function Login () {
         event.preventDefault();
         if (!form.checkValidity()){
             form.reportValidity();
+        } else {
+            const auth = new AuthService();
+            let res = await auth.login(form);
+            if (res.status === 401) {
+                toast.error("Mail ou mot de passe incorrect");
+            } else if (res.status === 200) {
+                res = await res.json();
+                localStorage.clear();
+                localStorage.setItem("id", res.body[1].id);
+                localStorage.setItem("token", res.token);
+                res.body[0].status === "admin" ? navigate(`/administrateur/tableau-de-bord`) : navigate("/decouvertes");
+            }
         }
-        const auth = new AuthService();
-        let res = await auth.login(form);
-        if (res.status === 401) {
-            toast.error("Mail ou mot de passe incorrect");
-        } else if (res.status === 200) {
-            res = await res.json();
-            localStorage.clear();
-            localStorage.setItem("id", res.body[1].id);
-            localStorage.setItem("token", res.token);
-            res.body[0].status === "admin" ? navigate(`/administrateur/tableau-de-bord`) : navigate("/decouvertes");
-        }
+
     }
 
     return (
@@ -58,7 +60,6 @@ function Login () {
                     </form>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     );
 }

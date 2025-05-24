@@ -9,5 +9,6 @@
 }
 
 #preferences-btn:hover {
-    @apply bg-[#E94057FF] text-white border-white;
+    @apply text-[#E94057FF] border-white;
+    box-shadow: 0 0 10px 0.5px rgb(233, 64, 87, 0.5);
 }

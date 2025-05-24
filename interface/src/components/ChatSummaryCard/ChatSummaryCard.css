@@ -1,0 +1,37 @@
+.ChatSummaryCard {
+    @apply flex items-center p-[10px] mb-2;
+    border-bottom: 1px solid #E0E0E0 ;
+}
+
+.ChatSummaryCard-profile {
+    @apply mr-[10px];
+}
+
+.ChatSummaryCard-profile img {
+    @apply h-[50px] w-[50px] rounded-full object-cover;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.ChatSummaryCard-content {
+    flex: 1;
+}
+
+.ChatSummaryCard-header {
+    @apply flex justify-between items-center;
+}
+
+.ChatSummaryCard-name {
+    @apply font-bold text-[16px];
+}
+
+.ChatSummaryCard-body{
+    @apply flex justify-between items-center;
+}
+
+.ChatSummaryCard-message {
+    @apply font-light text-gray-600;
+}
+
+.ChatSummaryCard-notification {
+    @apply flex justify-center bg-[#FF4D4F] text-white w-5 h-5 rounded-full text-sm;
+}

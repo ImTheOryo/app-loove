@@ -35,8 +35,8 @@
 }
 
 #user-btn-unexpanded {
-    @apply absolute  bg-white top-3 left-3;
-    border: 1px solid #E94057;
+    @apply absolute  bg-[#E94057] top-3 left-3;
+
     border-radius: 5px;
     z-index: 10;
 }

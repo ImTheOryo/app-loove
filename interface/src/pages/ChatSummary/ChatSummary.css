@@ -1,0 +1,16 @@
+#chat-summary-div {
+    @apply fixed left-auto right-auto h-max w-[80%];
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#chat-summary-div h3 {
+    @apply text-2xl ml-2 mt-3;
+    font-family: Poppins-Bold, serif;
+}
+
+#chat-summary-messages {
+    @apply  w-full h-[450px];
+    overflow-y: scroll ;
+}

@@ -21,7 +21,7 @@ function Navbar () {
                     <FiCompass className="text-[24px]"/>
                 </Link>
 
-                <Link to="/" id="navbar-grid-3" className={currentPath === "/conversations" ? "navbar-selected" : ""}>
+                <Link to="/conversations" id="navbar-grid-3" className={currentPath === "/conversations" ? "navbar-selected" : ""}>
                     <PiChatTeardropText className="text-[24px]"/>
                 </Link>
 

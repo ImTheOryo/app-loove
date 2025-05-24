@@ -1,9 +1,11 @@
+import {API_BASE_URL} from "../constants/Constants";
+
 export class AuthService {
 
     async login(form) {
         const data = new FormData(form);
         try {
-            const response = await fetch( 'https://app-loove-api.local/login', {
+            const response = await fetch( `${API_BASE_URL}/login`, {
                 method: 'POST',
                 body: data,
             });
@@ -18,4 +20,6 @@ export class AuthService {
             throw error;
         }
     }
+
+
 }

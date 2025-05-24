@@ -11,23 +11,23 @@ function Discovery() {
     const [range, setRange] = useState(50);
     const [minAge, setMinAge] = useState(18);
     const [maxAge, setMaxAge] = useState(30);
-
+    const [userCount, setUserCount] = useState(0);
+    const [currentUser, setCurrentUser] = useState(null);
     document.title = "Harmony | Découvertes";
 
     return (
         <div>
 
-            <UserProfile showExtendProfile={showExtendProfile} setShowExtendProfile={setShowExtendProfile}/>
+            <UserProfile showExtendProfile={showExtendProfile} setShowExtendProfile={setShowExtendProfile} userCount={userCount} setUserCount={setUserCount} setCurrentUser={setCurrentUser}/>
 
             <motion.div
                 key="AnimationShowExtendProfile"
                 animate={{
-                    y: showExtendProfile ? 150 : 0,
                     opacity: 1
                 }}
                 transition={{ duration: 0.7 }}
             >
-                <ActionButtons showExtendProfile={showExtendProfile} />
+                <ActionButtons showExtendProfile={showExtendProfile} setShowExtendProfile={setShowExtendProfile} currentUser={currentUser} userCount={userCount} setUserCount={setUserCount}/>
             </motion.div>
 
             <AnimatePresence>
@@ -40,7 +40,7 @@ function Discovery() {
                         transition={{ duration: 0 }}
                     >
                         <PreferencesButton selected={selected} setSelected={setSelected} range={range} setRange={setRange} minAge={minAge} setMinAge={setMinAge} maxAge={maxAge} setMaxAge={setMaxAge} />
-                        <Navbar />
+                        <Navbar/>
                     </motion.div>
                 )}
             </AnimatePresence>

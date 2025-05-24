@@ -11,7 +11,7 @@ import {useEffect} from "react";
 
 function Admin() {
     const location = useLocation();
-    const changeTitle = () => {
+    const changeCurrentTitle = () => {
         const raw = location.pathname.replace("/administrateur/", "");
         const formatted = raw
             .replace(/-/g, ' ')
@@ -21,7 +21,8 @@ function Admin() {
     };
 
     useEffect(() => {
-        changeTitle();
+        changeCurrentTitle();
+        // eslint-disable-next-line
     }, [location.pathname]);
     return (
         <div className="bg-[#FAFAFA]">
@@ -46,7 +47,7 @@ function Admin() {
                 <div className="flex flex-col items-center justify-center mt-6">
                     <Link to="/administrateur/tableau-de-bord" className="admin-btn" >
                         <LuClipboardList className="text-4xl"/>
-                        <p>Tableau de bord</p>
+                        <p>Dashboard</p>
                     </Link>
                     <Link to="/administrateur/statistiques" className="admin-btn">
                         <AiOutlineLineChart className="text-4xl"/>

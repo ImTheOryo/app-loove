@@ -1,6 +1,5 @@
 import Slider from "../Slider/Slider";
 import DoubleSlider from "../DoubleSlider/DoubleSlider";
-import {useState} from "react";
 import "./PreferencesCard.css";
 
 function PreferencesCard({setShowPreferences, selected, setSelected, range, setRange, minAge, setMinAge, maxAge, setMaxAge}) {

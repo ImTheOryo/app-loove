@@ -1,4 +1,4 @@
-import imageTest from "../../assets/images/women.png";
+import pp from "../../assets/images/women.png";
 import "./AdminCard.css"
 import {useNavigate} from "react-router";
 import {useState} from "react";
@@ -42,7 +42,7 @@ function AdminCard() {
 
 
             <div id="profile-card" onClick={() => setDisplayLogout(!displayLogout)}>
-                <img src={imageTest} alt="Profile Picture" className="profile-img"/>
+                <img src={pp} alt="Admin PP" className="profile-img"/>
                 <div className="profile-info">
                     <h2 className="font-nunito-regular">Enory D’Huysser</h2>
                     <p className="role font-nunito-regular">Owner</p>
