@@ -9,8 +9,9 @@ import PrivateRoute from "./services/PrivateRouteServce";
 import App from "./App";
 import Discovery from "./pages/Discovery/Discovery";
 import ChatSummary from "./pages/ChatSummary/ChatSummary";
-import {ToastContainer} from "react-toastify";
 import UserList from "./pages/UserList/UserList";
+import Chat from "./pages/Chat/Chat";
+import {ToastContainer} from "react-toastify";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,12 @@ const router = createBrowserRouter([
         element: <PrivateRoute allowedRoles={["user"]} children={<ChatSummary/>}></PrivateRoute>,
         children: [
             {path: "/conversations", element: ""}
+        ]
+    },
+    {
+        element: <PrivateRoute allowedRoles={["user"]} children={<Chat/>}></PrivateRoute>,
+        children: [
+            {path: `/conversations/:userId`, element: ""}
         ]
     }
 ]);

@@ -1,0 +1,19 @@
+.user-list-search-bar {
+    @apply flex m-auto justify-center w-[80%] bg-[#FAFAFA] px-2 py-5 mt-11 rounded-[10px];
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.user-list-table {
+    @apply w-[100%] mt-7 text-center m-auto;
+}
+
+.user-list-table-thead tr {
+    font-family: Nunito, sans-serif;
+    border-bottom: 1px solid #CFCFCF;
+    border-top: 1px solid #CFCFCF;
+}
+
+.user-list-img {
+    @apply rounded-full w-[40px] h-[40px];
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.7);
+}

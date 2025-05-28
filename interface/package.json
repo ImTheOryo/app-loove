@@ -10,6 +10,7 @@
     "autoprefixer": "^10.4.21",
     "motion": "^12.12.0",
     "postcss": "^8.5.3",
+    "pusher-js": "^8.4.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",

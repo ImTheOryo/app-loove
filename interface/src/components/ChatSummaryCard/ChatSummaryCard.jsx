@@ -1,22 +1,26 @@
 import "./ChatSummaryCard.css";
-import pp from "../../assets/images/women.png";
+import {API_BASE_URL} from "../../constants/Constants";
+import {useNavigate} from "react-router";
 
-function ChatSummaryCard({image, name, time, message}) {
+function ChatSummaryCard({userData}) {
+    const navigate = useNavigate();
+
+    const handleSummaryChatClick = () => {
+        navigate(`/conversations/${userData["user_id"]}`);
+    }
+
     return (
-        <article className="ChatSummaryCard">
+        <article className="ChatSummaryCard" onClick={handleSummaryChatClick}>
             <div className="ChatSummaryCard-profile">
-                <img src={pp} alt="Test test"/>
+                <img src={`${API_BASE_URL}/upload/${userData["image_name"]}`} alt={userData["first_name"]}/>
             </div>
             <div className="ChatSummaryCard-content">
                 <div className="ChatSummaryCard-header">
-                    <span className="ChatSummaryCard-name font-poppins-bold">Émilie</span>
-                    <span className="ChatSummaryCard-time font-nunito-regular">10 min</span>
+                    <span className="ChatSummaryCard-name font-poppins-bold">{userData["first_name"]}</span>
                 </div>
                 <div className="ChatSummaryCard-body">
                     <span className="ChatSummaryCard-message">message</span>
-                    <div className="ChatSummaryCard-notification">
-                        <span>1</span>
-                    </div>
+                    <div className={`ChatSummaryCard-notification`} style={{ display: parseInt(userData["count_message"]) > 0 ? "flex" : "none" }} ><span>{userData["count_message"]}</span></div>
                 </div>
             </div>
         </article>

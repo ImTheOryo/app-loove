@@ -15,7 +15,7 @@ function ActionButtons({showExtendProfile, setShowExtendProfile, currentUser, us
     }
 
     async function likeUser(){
-        // const res = await discovery.ActionUser("like",  currentUser);
+        const res = await discovery.ActionUser("like",  currentUser);
         setShowExtendProfile(false);
         const count = userCount + 1;
         setUserCount(count);

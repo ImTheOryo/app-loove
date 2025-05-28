@@ -1,0 +1,28 @@
+.chat-header {
+    @apply flex items-center justify-around rounded-b-[25px] pt-4 pb-4;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.25);
+
+}
+
+.header-image {
+    @apply text-center text-[13px];
+}
+
+.header-image img {
+    @apply h-[45px] w-[45px] rounded-full object-cover mb-1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.header-report-btn {
+    @apply border flex items-center justify-center border-[#E8E6EA] rounded-xl w-[46px] h-[46px];
+}
+
+.chat-section {
+    @apply w-[95%]  m-auto h-[550px] flex flex-col-reverse;
+    overflow-y: scroll;
+}
+
+.chat-input {
+    @apply flex w-[95%] m-auto rounded-[25px] mt-10 py-1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}

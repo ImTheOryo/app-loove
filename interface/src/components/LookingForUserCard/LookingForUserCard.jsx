@@ -38,7 +38,7 @@ function LookingForUserCard({LookingFor}) {
     const data = LOOKING_FOR_MAP[LookingFor];
 
     return (
-        <div className={`w-[90%] m-auto flex items-center justify-center px-3 py-1 rounded-full text-sm font-medium `} style={{background: data.color, boxShadow: `0px 0px 17px 2px ${data.shadowColor}`}}>
+        <div className={`w-[90%] m-auto flex items-center justify-center px-3 py-1 rounded-full text-sm font-medium `} style={{boxShadow: `0px 0px 17px 2px ${data.shadowColor}`}}>
             <div className={`flex items-center gap-2 px-4 py-2 rounded-xl shadow-[0_0_25px_${data.shadowColor}] ${data.textColor} font-semibold text-md`}>
                 {data.icon}
                 {data.text}
