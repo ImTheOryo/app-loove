@@ -7,10 +7,13 @@ use Exception;
 
 class UsersController extends BaseController
 {
+    private $userRepository;
 
+    function __construct(){
+        $this->userRepository = new UserRepository();
+    }
     public function login()
     {
-
         try {
             $email = clean_string($_POST['mail']);
             $password = clean_string($_POST['password']);
@@ -18,27 +21,13 @@ class UsersController extends BaseController
             response_json(400, $e->getMessage());
         }
 
-        $repository = new UserRepository();
-
-        $repository->log_in($email, $password);
+        $this->userRepository->log_in($email, $password);
 
     }
 
     public function get_all_users()
     {
-        $repository = new UserRepository();
-        $repository->get_all_users();
-    }
-
-    public function get_discovery(string $user_id) {
-        try {
-        } catch (Exception $e) {
-            response_json(400, $e->getMessage());
-        }
-
-        $repository = new UserRepository();
-
-        $repository->get_discovery($user_id);
+        $this->userRepository->get_all_users();
     }
 
 }
