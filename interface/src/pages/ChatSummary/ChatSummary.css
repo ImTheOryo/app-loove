@@ -6,7 +6,7 @@
 }
 
 #chat-summary-div h3 {
-    @apply text-2xl ml-2 mt-3;
+    @apply text-2xl mt-3;
     font-family: Poppins-Bold, serif;
 }
 

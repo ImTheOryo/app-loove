@@ -5,3 +5,8 @@
     @apply w-12 h-12 rounded-full mr-1 object-cover;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
 }
+
+.message-sender {
+    @apply bg-[#E94057] text-white w-[100%] p-2 rounded-b-2xl rounded-tl-2xl;
+    overflow-wrap:  break-word;
+}

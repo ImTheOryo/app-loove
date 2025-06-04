@@ -13,13 +13,13 @@ function ChatBubbleReceiver({image, name, data}) {
                         {name}
                     </span>
                 </div>
-                <p className=" bg-[#00000012] font-nunito-regular w-max p-2 rounded-b-2xl rounded-tr-2xl">
+                <p className=" message-receiver font-nunito-regular">
                     {data["message"]}
                 </p>
                 <div className="flex items-center mb-2">
-                    <FaCheckDouble className={`text-xs self-center ${data["seen"] = 0 ? "text-gray-100" : "text-blue-600"}`}/>
+                    <FaCheckDouble className={`text-xs self-center ${Number(data["seen"]) === 0 ? "text-gray-100" : "text-blue-600"}`}/>
                     <span className="ml-1 text-sm text-gray-500 ">
-                        {data["date"]}
+                        {data["date"].replace(":00", "")}
                     </span>
                 </div>
             </div>

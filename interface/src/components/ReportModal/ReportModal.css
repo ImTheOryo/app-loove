@@ -1,0 +1,13 @@
+.ReportModal {
+    @apply m-auto mt-24 bg-white;
+    border-radius: 5px;
+    width: 90%;
+}
+
+.modal-header {
+    @apply flex justify-between;
+}
+
+.btn-close-modal {
+    @apply bg-[#E94057] rounded-[5px];
+}

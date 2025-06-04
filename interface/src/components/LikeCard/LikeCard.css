@@ -1,0 +1,9 @@
+.LikeCard {
+    @apply w-[130px] h-[200px] rounded-2xl mb-7 mr-auto  ;
+    box-shadow: 0 4px 10px rgba(184, 184, 184, 0.3);
+}
+
+.LikeCard img {
+    @apply w-full h-full bg-cover rounded-2xl;
+    filter: blur(10px);
+}

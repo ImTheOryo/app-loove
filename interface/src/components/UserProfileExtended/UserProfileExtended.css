@@ -5,7 +5,7 @@
     box-shadow: 8px 0 40px 0 rgba(0, 0, 0, 0.37);
 }
 
-#user-btn-unexpanded {
+.user-btn-unexpanded {
     @apply fixed  bg-[#E94057] top-3 left-3;
 
     border-radius: 5px;
@@ -13,7 +13,7 @@
 }
 
 #user-profile-expanded-img {
-    @apply w-full mx-auto;
+    @apply w-full mx-auto object-cover;
 }
 
 #user-profile-expanded-img img {

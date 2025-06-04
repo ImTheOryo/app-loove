@@ -1,13 +1,6 @@
 import "./UserProfile.css";
 import {DiscoveryService} from "../../services/DiscoveryService";
-import InterestTag from "../InterestTag/InterestTag";
-import QuestionMusicCard from "../QuestionMusicCard/QuestionMusicCard";
-import LookingForUserCard from "../LookingForUserCard/LookingForUserCard";
 import { LuArrowUp } from "react-icons/lu";
-import { MdTravelExplore, MdAudiotrack } from "react-icons/md";
-import { GiOrbitalRays, GiMirrorMirror } from "react-icons/gi";
-import { PiImagesDuotone } from "react-icons/pi";
-import { HiMiniXMark } from "react-icons/hi2";
 import { AnimatePresence, motion } from "motion/react";
 import {useEffect, useState} from "react";
 import {API_BASE_URL} from "../../constants/Constants";
@@ -19,17 +12,18 @@ function UserProfile({showExtendProfile, setShowExtendProfile, userCount, setUse
     let images = [];
 
 
+    const fetchUsers = async () => {
+        try {
+            const response = await discovery.getDiscovery();
+            const data = await response.json();
+            setUsers(data.body);
+            setUserCount(0);
+        } catch (error) {
+            console.error("Error fetching users:", error);
+        }
+    };
+
     useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await discovery.getDiscovery();
-                const data = await response.json();
-                setUsers(data.body);
-                setUserCount(0);
-            } catch (error) {
-                console.error("Error fetching users:", error);
-            }
-        };
         fetchUsers();
     }, []);
 
@@ -38,10 +32,7 @@ function UserProfile({showExtendProfile, setShowExtendProfile, userCount, setUse
 
     if (isNaN(userInfo)){
         setCurrentUser(userInfo['infos']['id'])
-        const sortedImages = userInfo['images'].sort((a, b) => b.image_primary - a.image_primary);
-        for (let i = 1; i < sortedImages.length; i++) {
-            images.push(sortedImages[i]);
-        }
+        const sortedImages = userInfo['image']
 
         return (
             <div>
@@ -81,7 +72,7 @@ function UserProfile({showExtendProfile, setShowExtendProfile, userCount, setUse
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <UserProfileExtended setShowExtendProfile={setShowExtendProfile} userInfo={userInfo}/>
+                            <UserProfileExtended key={Math.random()} setShowExtendProfile={setShowExtendProfile} userID={userInfo['infos']['id']}/>
                         </motion.div>
                     )}
                 </AnimatePresence>

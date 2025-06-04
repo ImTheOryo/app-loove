@@ -1,7 +1,11 @@
+import './index.css';
+
 import {createBrowserRouter, RouterProvider,} from "react-router";
+import {ToastContainer} from "react-toastify";
+import Modal from "react-modal";
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+
 import Home from './pages/Home/Home';
 import Login from "./pages/Login/Login";
 import Admin from "./pages/Admin/Admin";
@@ -11,7 +15,12 @@ import Discovery from "./pages/Discovery/Discovery";
 import ChatSummary from "./pages/ChatSummary/ChatSummary";
 import UserList from "./pages/UserList/UserList";
 import Chat from "./pages/Chat/Chat";
-import {ToastContainer} from "react-toastify";
+import Likes from "./pages/Likes/Likes";
+import ProfileSummary from "./pages/ProfileSummary/ProfileSummary";
+import ProfileSettings from "./pages/ProfileSettings/ProfileSettings";
+
+
+Modal.setAppElement('#root');
 
 const router = createBrowserRouter([
     {
@@ -38,6 +47,12 @@ const router = createBrowserRouter([
         ],
     },
     {
+        element: <PrivateRoute allowedRoles={["user"]} children={<Likes/>}></PrivateRoute>,
+        children: [
+            {path: "/likes", element: ""},
+        ]
+    },
+    {
         element: <PrivateRoute allowedRoles={["user"]} children={<ChatSummary/>}></PrivateRoute>,
         children: [
             {path: "/conversations", element: ""}
@@ -48,10 +63,23 @@ const router = createBrowserRouter([
         children: [
             {path: `/conversations/:userId`, element: ""}
         ]
+    },
+    {
+        element: <PrivateRoute allowedRoles={["user"]} children={<ProfileSummary/>}></PrivateRoute>,
+        children: [
+            {path: "/profile", element: ""}
+        ]
+    },
+    {
+        element: <PrivateRoute allowedRoles={["user"]} children={<ProfileSettings/>}></PrivateRoute>,
+        children: [
+            {path: "/profile/settings", element: ""}
+        ]
     }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <React.StrictMode>
         <RouterProvider router={router}/>

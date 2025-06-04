@@ -6,7 +6,7 @@
 }
 
 #user-profile img {
-    @apply w-full h-full rounded-[20px];
+    @apply w-full h-full rounded-[20px] object-cover;
 }
 
 #user-profile div {

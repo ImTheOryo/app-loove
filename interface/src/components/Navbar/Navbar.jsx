@@ -17,7 +17,7 @@ function Navbar () {
                     <GoHome className="text-[24px] "/>
                 </Link>
 
-                <Link to="/" id="navbar-grid-2" className={currentPath === "/likes" ? "navbar-selected" : ""}>
+                <Link to="/likes" id="navbar-grid-2" className={currentPath === "/likes" ? "navbar-selected" : ""}>
                     <FiCompass className="text-[24px]"/>
                 </Link>
 
@@ -25,11 +25,11 @@ function Navbar () {
                     <PiChatTeardropText className="text-[24px]"/>
                 </Link>
 
-                <Link to="/" id="navbar-grid-4" className={currentPath === "/profile" ? "navbar-selected" : ""}>
+                <Link to="/profile" id="navbar-grid-4" className={currentPath === "/profile" ? "navbar-selected" : ""}>
                     <MdPersonOutline className="text-[24px]"/>
                 </Link>
 
-                <Link to="/" id="navbar-grid-5" className={currentPath === "/parametres" ? "navbar-selected" : ""}>
+                <Link to="/parametres" id="navbar-grid-5" className={currentPath === "/parametres" ? "navbar-selected" : ""}>
                     <PiGear className="text-[24px]"/>
                 </Link>
             </div>

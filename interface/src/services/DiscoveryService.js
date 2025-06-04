@@ -12,7 +12,6 @@ export class DiscoveryService {
             if (!res.ok) {
                 new Error(`Erreur HTTP : ${res.status}!`);
             }
-
             return res;
         } catch (error) {
             console.error("Erreur lors de la connexion :", error);

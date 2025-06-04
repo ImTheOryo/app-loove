@@ -2,31 +2,41 @@ import "./ChatSummary.css";
 import Navbar from "../../components/Navbar/Navbar";
 import ChatSummaryCard from "../../components/ChatSummaryCard/ChatSummaryCard";
 import {useEffect, useState} from "react";
-import {ChatService} from "../../services/ChatService";
+import {API_BASE_URL} from "../../constants/Constants";
 
 function ChatSummary() {
     const [userData, setUserData] = useState([]);
-    const chatService = new ChatService();
     document.title = "Harmony | Conversations";
     const listItem = [];
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try{
-                let data = await chatService.getAllMatch();
-                data = await data.json();
-                setUserData(data.body);
-            } catch(e){
-                console.error("Error fetching users:", e);
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/match/${localStorage.getItem("id")}`, {
+                method: 'GET',
+                headers: { "Token": localStorage.getItem("token") },
+            })
+
+            if (!response.ok) {
+                new Error(`Erreur HTTP : ${response.status}!`);
             }
+
+            if (response.status === 200) {
+                const data = await response.json();
+                setUserData(data.body);
+            }
+        } catch (error) {
+            console.error("Erreur lors de la récupération des matchs :", error);
+            throw error;
         }
+    }
+
+    useEffect(() => {
+
         fetchData();
     },  []);
 
     if (isNaN(userData)){
-        userData.map((user) => {
-            listItem.push(<ChatSummaryCard userData={user}/>);
-        });
+        listItem.push(userData.map(user => <ChatSummaryCard key={Math.random()} userData={user} />));
     }
     return (
         <div className="flex">

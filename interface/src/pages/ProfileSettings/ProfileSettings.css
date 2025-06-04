@@ -1,0 +1,35 @@
+.profile-div {
+    @apply  w-full h-screen bg-gray-100;
+}
+
+.profile-header {
+    @apply flex justify-between pt-10 items-center mb-10;
+}
+
+.profile-btn-close {
+    @apply bg-[#E94057] text-3xl text-white;
+    border-radius: 5px;
+}
+
+.profile-see-btn {
+    @apply bg-[#E94057] text-white py-1 px-4;
+    border-radius: 5px;
+}
+
+
+.setting-article {
+    @apply flex justify-between shadow-md mb-7 px-5 py-4 rounded-[20px] items-center bg-white;
+}
+
+.setting-article div {
+    @apply flex items-center text-[#3B0A4F];
+}
+
+.setting-article div h2 {
+    @apply pl-3;
+    font-family: Poppins-Bold, SansSerif;
+}
+
+.setting-article p {
+    @apply items-center text-end;
+}

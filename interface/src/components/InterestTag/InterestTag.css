@@ -1,4 +1,8 @@
-#interest-tag {
+.interest-tag {
     @apply flex w-max pl-2 pr-2 text-[#E94057] rounded-[5px] mt-1 mr-1;
     border: 1px solid #E94057;
+}
+
+.selected {
+    @apply text-white bg-[#E94057] ;
 }
