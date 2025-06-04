@@ -5,12 +5,11 @@ namespace App\Controllers;
 use App\Repositories\UserRepository;
 use Exception;
 
-class UsersController extends BaseController
-{
-    private $userRepository;
+class UsersController extends BaseController {
+    private $repository;
 
     function __construct(){
-        $this->userRepository = new UserRepository();
+        $this->repository = new UserRepository();
     }
     public function login()
     {
@@ -21,13 +20,13 @@ class UsersController extends BaseController
             response_json(400, $e->getMessage());
         }
 
-        $this->userRepository->log_in($email, $password);
+        $this->repository->log_in($email, $password);
 
     }
 
     public function get_all_users()
     {
-        $this->userRepository->get_all_users();
+        $this->repository->get_all_users();
     }
 
 }

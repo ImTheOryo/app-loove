@@ -9,33 +9,29 @@ class DiscoveryRepository extends BaseRepository{
         $result = [];
 
         $users = $this
-            ->query("SELECT `id`, `first_name`, `age`, `current`, `biography`, `search_type_id`  FROM user WHERE id != :id")
-            ->fetchAll(['id' => $id])
+            ->query("
+                    SELECT u.id, u.first_name, u.age, u.current
+                    FROM user u
+                             LEFT JOIN likes l1 ON u.id = l1.user_id_2 AND l1.user_id_1 = :user_id
+                             LEFT JOIN likes l2 ON u.id = l2.user_id_1 AND l2.user_id_2 = :user_id
+                    WHERE u.id != :user_id
+                      AND (l1.id IS NULL OR l1.is_match = 0)
+                      AND (l2.id IS NULL OR l2.is_match = 0)")
+            ->fetchAll(['user_id' => $id])
         ;
 
         empty($users) ? response_json(204) : null;
 
         foreach ($users as $user) {
-            $images = $this
-                    ->query("SELECT image_name, image_primary FROM image WHERE user_id = :id")
-                ->fetchAll(['id' => $user['id']])
-            ;
 
-            $hobbies = $this
-                ->query("SELECT h.hobby FROM user_hobby AS uh LEFT JOIN hobby AS h ON uh.hobby_id = h.id WHERE user_id = :id")
-                ->fetchAll(['id' => $user['id']])
-            ;
-
-            $musics = $this
-                ->query("SELECT q.question, qa.answer FROM question_answer AS qa LEFT JOIN question AS q on q.id = qa.id_question WHERE id_user = :id")
+            $image = $this
+                ->query("SELECT image_name FROM image WHERE user_id = :id AND image_primary = 1")
                 ->fetchAll(['id' => $user['id']])
             ;
 
             $result[] = [
                 'infos' => $user,
-                'images' => $images,
-                'hobbies' => $hobbies,
-                'musics' => $musics,
+                'image' => $image,
             ];
         }
 
@@ -85,5 +81,31 @@ class DiscoveryRepository extends BaseRepository{
                 ->execute(['user_id_1' => $user_like, 'user_id_2' => $user_id])
             ;
         }
+    }
+
+    public function get_likes ($user_id): void{
+        $result = [];
+
+        $likes = $this
+            ->query("SELECT user_id_1 FROM likes WHERE user_id_2 = :user_id_2 AND user_1_skip = 0 AND is_match = 0 AND user_2_skip = 0")
+            ->fetchAll(['user_id_2' => $user_id])
+        ;
+
+        empty($likes) ? response_json(204) : null;
+
+        foreach ($likes as $like) {
+
+            $image = $this
+                ->query("SELECT image_name FROM image WHERE user_id = :id AND image_primary = 1")
+                ->fetch(["id" => $like['user_id_1']])
+            ;
+
+            $result[] = [
+                'id' => $like['user_id_1'],
+                'image' => $image['image_name'],
+            ];
+
+        }
+        response_json(200, $result);
     }
 }

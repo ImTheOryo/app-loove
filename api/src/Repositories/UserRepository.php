@@ -29,13 +29,12 @@ class UserRepository extends BaseRepository
                 $jwt = new JwtService();
                 if ($admin) {
                     $token = $jwt->generate(['status' => $_ENV['JWT_ADMIN_KEY']]);
-                    session_start();
+//                    session_start();
                     response_json(200, [['status' => 'admin'], ['id' => $result['id']]], $token);
                 } else {
-                    $token = $jwt->generate(['status' => $_ENV['JWT_USER_KEY']]);
-                    session_start();
-                    $_SESSION['id'] = $result['id'];
-                    response_json(200, [['status' => 'user'], ['id' => $result['id']]], $token);
+                    $token = $jwt->generate(['status' => $_ENV['JWT_USER_KEY'], 'subscription' => $result["status"]]);
+//                    session_start();
+                    response_json(200, [['status' => 'user'], ['id' => $result['id']], ['subscription' => $result['status']]], $token);
                 }
             }
             response_json(401, 'incorrect mail or password');
