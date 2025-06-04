@@ -11,8 +11,7 @@ import {useEffect} from "react";
 
 function Admin() {
     const location = useLocation();
-
-    const setTitle = () => {
+    const changeCurrentTitle = () => {
         const raw = location.pathname.replace("/administrateur/", "");
         const formatted = raw
             .replace(/-/g, ' ')
@@ -22,12 +21,13 @@ function Admin() {
     };
 
     useEffect(() => {
-        setTitle();
+        changeCurrentTitle();
+        // eslint-disable-next-line
     }, [location.pathname]);
     return (
         <div className="bg-[#FAFAFA]">
 
-            <div className="w-[18%] h-screen bg-[#FFFFFF]">
+            <div className="w-[18%] h-screen bg-[#FFFFFF] mt-2">
                 <div className="flex flex-row items-center justify-center">
                     <img src={HarmonyLogo} alt="Harmony logo" className="w-1/3"/>
                     <div>
@@ -36,7 +36,7 @@ function Admin() {
                     </div>
                 </div>
                 <div className="w-[82%] h-[11%] bg-[#FFFFFF] fixed top-0 right-0 flex justify-between  items-center">
-                    <p className="text-grid-2-3 text-4xl" id="title">
+                    <p className="text-grid-2-3 text-4xl font-nunito-bold font-bold" id="title">
                         Test
                     </p>
                     <div className="profile-grid-3 justify-self-end mr-5">
@@ -47,7 +47,7 @@ function Admin() {
                 <div className="flex flex-col items-center justify-center mt-6">
                     <Link to="/administrateur/tableau-de-bord" className="admin-btn" >
                         <LuClipboardList className="text-4xl"/>
-                        <p>Tableau de bord</p>
+                        <p>Dashboard</p>
                     </Link>
                     <Link to="/administrateur/statistiques" className="admin-btn">
                         <AiOutlineLineChart className="text-4xl"/>

@@ -1,0 +1,48 @@
+
+
+#user-navbar {
+    @apply w-[90%] h-[64px] bg-[#FFFFFF] items-center rounded-[99px];
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 8px 0 40px 0 rgba(233, 64, 87, 0.15);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+}
+
+#user-navbar a {
+    @apply flex items-center justify-center w-[40px] h-[40px] m-auto;
+    color: #A58AA5;
+}
+
+.navbar-selected {
+    @apply rounded-[99px];
+    background-color: rgba(233, 64, 87, 1);
+    color: #FFFFFF !important;
+}
+
+
+
+#navbar-grid-1 {
+    grid-column: 1;
+}
+
+#navbar-grid-2 {
+    grid-column: 2;
+}
+
+#navbar-grid-3 {
+    grid-column: 3;
+}
+
+#navbar-grid-4 {
+    grid-column: 4;
+}
+
+#navbar-grid-5 {
+    grid-column: 5;
+}
+
+

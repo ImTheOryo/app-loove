@@ -2,19 +2,18 @@
 
 namespace App\Repositories;
 
-class ReportRepository extends BaseRepository
-{
+class ReportRepository extends BaseRepository {
+    public function get_report_reason () {
+        $reasons = [];
+        $res = $this
+            ->query("SELECT reason FROM report_reason")
+            ->fetchAll()
+        ;
 
-    public function get_reports()
-    {
-        $result = $this
-            ->query("SELECT * FROM `report`")
-            ->fetchAll();
-
-        if (empty($result)) {
-            response_json(204, "No reports found.");
+        foreach ($res as $reason) {
+            $reasons[] = $reason['reason'];
         }
-        response_json(200, $result);
-    }
 
+        response_json(200, $reasons);
+    }
 }

@@ -9,7 +9,6 @@ use App\Controllers\BaseController;
 
 class Routeur
 {
-
     public function __construct(
         private array $routes = []
     )
@@ -34,13 +33,17 @@ class Routeur
             if ($route->isValidFor($request)) {
 
                 if ($route->getRestriction() != "none") {
-                    if (isset(getallheaders()['Authorization'])) {
+                    if (isset(getallheaders()['Token'])) {
                         $jwt = new JwtService();
-                        $header = $jwt->verify(getallheaders()['Authorization']);
-                        if ($header->status === $_ENV['JWT_ADMIN_KEY']) {
-                            break;
-                        } else if ($header->status !== $route->getRestriction()) {
-                            response_json(403);
+                        $header = $jwt->verify(getallheaders()['Token']);
+                        if (isset($header->status)) {
+                            if ($header->status === $_ENV['JWT_ADMIN_KEY']) {
+                                break;
+                            } else if ($header->status !== $route->getRestriction()) {
+                                response_json(403);
+                            }
+                        } else {
+                            response_json(401);
                         }
                     } else {
                         response_json(401);

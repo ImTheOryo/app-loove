@@ -1,0 +1,29 @@
+#user-profile {
+    @apply w-[300px] h-[450px] fixed rounded-[15px] ;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#user-profile img {
+    @apply w-full h-full rounded-[20px] object-cover;
+}
+
+#user-profile div {
+    @apply w-full fixed bottom-0 rounded-b-[15px];
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 30px 40px rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(7.5px);
+}
+
+#user-profile h2 {
+    @apply text-white text-3xl font-bold mb-1 mr-2 pl-2 pt-2;
+}
+
+#user-profile p {
+    @apply text-white mb-2 pl-2;
+}
+
+#user-profile-expand {
+    @apply fixed bottom-5 right-5 border-2 border-white rounded-[10px] p-1;
+}

@@ -1,0 +1,26 @@
+.profile-section {
+    @apply relative z-10 flex flex-col items-center pt-16;
+}
+
+.profile-section-img {
+    @apply relative;
+}
+
+.profile-section-img img {
+    @apply w-32 h-32 rounded-full object-cover;
+    box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.profile-modify {
+    @apply bg-white rounded-full p-4 text-xl;
+    box-shadow: 2px 1px 5px rgba(251, 134, 148, 0.74);
+}
+
+.avantage-section {
+    @apply grid grid-cols-3 items-center text-sm;
+    font-family: Nunito, sans-serif;
+}
+
+.button-premium {
+    @apply bg-[#E94057] w-[90%] py-2 text-white font-bold rounded-full;
+}

@@ -30,7 +30,6 @@ class JwtService
     public function verify(string $token)
     {
         try {
-            $token = preg_match('/^Bearer\s+([A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+)$/', $token, $matches) ? $matches[1] : null;
             return JWT::decode($token, new Key($this->secret, $this->algorithm));
         } catch (Exception $e) {
             return $e->getMessage();

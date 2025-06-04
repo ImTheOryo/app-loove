@@ -1,4 +1,4 @@
-.profile-card {
+#profile-card {
     display: flex;
     align-items: center;
     background-color: white;
@@ -10,7 +10,7 @@
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
 }
 
-.profile-card:hover {
+#profile-card:hover {
     box-shadow: 0 6px 20px rgba(165, 138, 165, 0.35);
     transform: translateY(-2px);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -36,18 +36,7 @@
     color: #999999;
 }
 
-.logout-btn.show {
-    animation-duration: 3s;
-    animation-name: slide-in;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-.logout-btn.hide {
-
-}
-
-.logout-btn {
+#logout-btn {
     background-color: #E94057;
     padding: 15px 25px;
     border-radius: 99px;

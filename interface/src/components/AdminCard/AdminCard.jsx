@@ -1,20 +1,15 @@
-import imageTest from "../../assets/images/women.png";
+import pp from "../../assets/images/women.png";
 import "./AdminCard.css"
 import {useNavigate} from "react-router";
+import {useState} from "react";
+import {motion} from "motion/react";
+
 
 function AdminCard() {
     const navigate = useNavigate();
+    const [displayLogout, setDisplayLogout] = useState(false);
 
-    const showProfileDropdown = () => {
-        const profile = document.getElementById("logout-btn");
-        if (profile.classList.contains("hidden")) {
-            profile.classList.toggle("show")
-            profile.classList.remove("hidden");
-        } else {
-            profile.classList.toggle("hide")
-            profile.classList.add("hidden");
-        }
-    }
+
 
     const logoutOnClick = () => {
         localStorage.clear();
@@ -22,13 +17,32 @@ function AdminCard() {
     }
     return (
         <div className="flex items-center">
-            <div className="mr-[35px]">
-                <button className="logout-btn hidden" id="logout-btn" onClick={logoutOnClick}>
-                    Se déconnecter
-                </button>
-            </div>
-            <div className="profile-card" onClick={showProfileDropdown}>
-                <img src={imageTest} alt="Profile Picture" className="profile-img"/>
+
+            <motion.div
+                key="AnimationShowLogoutBtn"
+                initial={{
+                    opacity: 0,
+                    x: displayLogout ? 0 : 100,
+                }}
+                animate={{
+                    opacity: displayLogout ? 1 : 0,
+                    x: displayLogout ? 0 : 100,
+                    transition: {
+                        duration: 0.5,
+                    },
+                }}
+                exit={{ opacity: 0 }}
+            >
+                <div className="mr-[35px]">
+                    <button className={!displayLogout ? "" : "flex"} id="logout-btn" onClick={logoutOnClick}>
+                        Se déconnecter
+                    </button>
+                </div>
+            </motion.div>
+
+
+            <div id="profile-card" onClick={() => setDisplayLogout(!displayLogout)}>
+                <img src={pp} alt="Admin PP" className="profile-img"/>
                 <div className="profile-info">
                     <h2 className="font-nunito-regular">Enory D’Huysser</h2>
                     <p className="role font-nunito-regular">Owner</p>

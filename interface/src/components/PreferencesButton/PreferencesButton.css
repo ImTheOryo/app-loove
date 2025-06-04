@@ -1,0 +1,14 @@
+#preferences-btn-div {
+    @apply w-[300px] fixed left-[50%] top-[10%];
+    transform: translate(-50%, -50%);
+}
+
+#preferences-btn {
+    @apply flex ml-auto p-2 rounded-[15px] text-[#E94057FF] text-3xl;
+    border: 2px solid #E8E6EA;
+}
+
+#preferences-btn:hover {
+    @apply text-[#E94057FF] border-white;
+    box-shadow: 0 0 10px 0.5px rgb(233, 64, 87, 0.5);
+}

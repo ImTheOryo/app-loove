@@ -1,0 +1,21 @@
+.profile-settings-div {
+    @apply w-[90%] h-full m-auto;
+    font-family: Nunito, sans-serif;
+}
+
+.btn-back-profile {
+    @apply p-3 text-3xl p-3 bg-[#E94057] text-white mt-3 rounded-[15px];
+}
+
+.profile-settings-div h2 {
+    @apply p-3 text-3xl font-bold text-[#3B0A4F];
+}
+
+.profile-settings-div textarea {
+    @apply w-full h-[500px] p-3 rounded-[25px] text-[#3B0A4F];
+}
+
+.btn-send-bio {
+    @apply bg-[#E94057] text-white py-3 px-4 w-full mt-7 rounded-lg text-xl font-bold;
+    font-family: Nunito, sans-serif;
+}

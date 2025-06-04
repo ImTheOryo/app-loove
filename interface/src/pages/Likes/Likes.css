@@ -1,0 +1,9 @@
+.likes-Header h3{
+    @apply text-2xl mt-16;
+    font-family: Poppins-Bold, serif;
+}
+
+.LikesContent {
+    @apply flex flex-wrap gap-4 justify-around w-[300px] h-max m-auto;
+}
+

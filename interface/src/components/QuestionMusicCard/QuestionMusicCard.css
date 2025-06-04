@@ -1,0 +1,4 @@
+.question-music-card {
+    @apply flex flex-col items-center bg-white rounded-xl p-4 mb-6 w-full max-w-md mx-auto;
+    box-shadow: 1px 5px 15px 1px rgba(0, 0, 0, 0.36);
+}

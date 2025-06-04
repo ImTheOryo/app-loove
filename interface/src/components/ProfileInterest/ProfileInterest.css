@@ -1,0 +1,7 @@
+.profile-interests-div {
+    @apply flex flex-wrap;
+}
+
+.profile-interests-div div {
+    @apply mr-3 mb-2;
+}

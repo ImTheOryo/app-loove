@@ -1,0 +1,49 @@
+/* Dropdown Préferences */
+
+#preferences-dropdown {
+    @apply w-screen h-screen fixed top-0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 500;
+}
+
+#preferences-dropdown-content{
+    @apply w-screen h-max fixed bottom-0 bg-white rounded-t-[50px] ;
+}
+
+#preferences-dropdown-title {
+    @apply w-full mt-5 text-2xl flex items-center justify-center font-extrabold;
+    font-family: Nunito, sans-serif;
+}
+
+
+/* Dropdown Body Preferences */
+
+#preferences-dropdown-section {
+    @apply w-[85%] m-auto mt-7;
+}
+
+#preferences-dropdown-section article {
+    @apply mb-10;
+}
+
+#preferences-dropdown-section h3 {
+    @apply text-xl font-bold mb-5;
+    font-family: Nunito, sans-serif;
+}
+
+/* Preferences de sexe */
+
+#interested-in-radio {
+    @apply w-full justify-around inline-flex rounded-[20px] border border-gray-300 overflow-hidden;
+}
+
+/* Preferences de distance */
+
+#preferences-dropdown-section-distance{
+    @apply flex justify-between;
+}
+
+#preferences-dropdown-section-distance p {
+    @apply text-gray-700 mb-5;
+    font-family: Nunito, sans-serif;
+}
