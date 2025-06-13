@@ -1,9 +1,13 @@
-import {toast} from "react-toastify";
-import {Link, useNavigate} from "react-router";
-import {AuthService} from "../../services/AuthService";
 import "./Login.css"
+import {AuthService} from "../../services/AuthService";
+import {Link, useNavigate} from "react-router";
+import {toast} from "react-toastify";
+import {useState} from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import * as PusherPushNotifications from "@pusher/push-notifications-web";
 
 function Login () {
+    const [showPassword, setShowPassword] = useState(false);
     document.title = "Harmony | Connexion";
     const navigate = useNavigate();
 
@@ -22,7 +26,26 @@ function Login () {
                 localStorage.clear();
                 localStorage.setItem("id", res.body[1].id);
                 localStorage.setItem("token", res.token);
+
+                const beamsClient = new PusherPushNotifications.Client({
+                    instanceId: "d3357f00-ef05-4ba6-afea-f741e8d1814e",
+                });
+
+                beamsClient
+                    .start()
+                    .then((beamsClient) => beamsClient.getDeviceId())
+                    .then(
+                        (deviceId) => console.log("Successfully registered with Beams. Device ID:", deviceId)
+                    )
+                    .then(() => beamsClient.addDeviceInterest(localStorage.getItem("id")))
+                    .then(() => beamsClient.getDeviceInterests())
+                    .then((interests) => console.log("Current interests:", interests))
+                    .catch(console.error)
+                ;
+
+
                 res.body[0].status === "admin" ? navigate(`/administrateur/tableau-de-bord`) : navigate("/decouvertes");
+
             }
         }
 
@@ -48,12 +71,30 @@ function Login () {
                                 <label className="absolute -top-2 left-5 px-1 bg-transparent text-white text-sm z-10">
                                     Mot de passe
                                 </label>
-                                <input type="password" required className="w-full h-full rounded-[20px] border border-white bg-white bg-opacity-20 px-4 pt-3 text-white placeholder-transparent focus:outline-none" name="password" id="password"/>
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    required
+                                    className="w-full h-full rounded-[20px] border border-white bg-white bg-opacity-20 px-4 pt-3 text-white placeholder-transparent focus:outline-none"
+                                    name="password"
+                                    id="password"
+                                />
+                                <button
+                                    className="absolute inset-y-0 right-7 flex items-center text-white focus:outline-none"
+                                    onClick={(event)=>{
+                                        event.preventDefault();
+                                        setShowPassword(!showPassword)
+                                    }}
+                                >
+                                    {showPassword ? <FaEye/> : <FaEyeSlash/> }
+                                </button>
                                 <Link to="#" className="absolute bottom-[-20px] right-3 text-xs text-white hover:underline">
                                     Mot de passe oublié
                                 </Link>
                             </div>
-                            <button className="primary-btn m-auto mt-14" onClick={handle_submit}>
+                            <button
+                                className="primary-btn m-auto mt-14"
+                                onClick={handle_submit}
+                            >
                                 Connexion
                             </button>
                         </div>

@@ -9,6 +9,9 @@ function PreferencesCard({setShowPreferences, selected, setSelected, range, setR
         { value: "boys", label: "Hommes" },
         { value: "both", label: "Tous" },
     ];
+
+
+
     return (
         <div id="preferences-dropdown">
             <div id="preferences-dropdown-content">

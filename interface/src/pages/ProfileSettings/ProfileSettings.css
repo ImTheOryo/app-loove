@@ -1,9 +1,9 @@
 .profile-div {
-    @apply  w-full h-screen bg-gray-100;
+    @apply  w-full min-h-screen h-max bg-gray-100;
 }
 
 .profile-header {
-    @apply flex justify-between pt-10 items-center mb-10;
+    @apply flex justify-between pt-10 px-3 items-center mb-10;
 }
 
 .profile-btn-close {
@@ -18,16 +18,18 @@
 
 
 .setting-article {
-    @apply flex justify-between shadow-md mb-7 px-5 py-4 rounded-[20px] items-center bg-white;
+    @apply flex justify-between shadow-md mb-7 px-5 py-4 rounded-[20px] items-center bg-white text-[#3B0A4F];
+    font-family: Poppins-Bold, SansSerif
+
 }
 
 .setting-article div {
-    @apply flex items-center text-[#3B0A4F];
+    @apply flex items-center ;
 }
 
 .setting-article div h2 {
     @apply pl-3;
-    font-family: Poppins-Bold, SansSerif;
+    ;
 }
 
 .setting-article p {

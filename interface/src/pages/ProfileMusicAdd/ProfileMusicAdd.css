@@ -1,0 +1,64 @@
+
+.question-select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.music-input input {
+    width: calc(100% - 100px);
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.music-input button {
+    padding: 10px 15px;
+    background-color: #E94057;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.music-input button:hover {
+    background-color: #E94057;
+}
+
+.music-options {
+    @apply items-center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+
+}
+
+.music-option {
+    @apply w-full flex flex-col items-center p-[10px] border border-[#DDD] rounded-md bg-[#FFF] text-black text-center;
+    cursor: pointer;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.music-option:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.music-option.selected {
+    border-color: #E94057;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.music-image {
+    width: 75px;
+    height: 75px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+

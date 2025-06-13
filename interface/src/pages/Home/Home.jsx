@@ -12,8 +12,10 @@ function Home () {
                         <span style={{fontFamily:"Poppins-Bold, sans-serif"}} className="text-2xl text-center items-center text-white mx-auto mt-52" id="catch-prase">
                             Love is just a beat away™
                         </span>
-                    <Link to="/" className="primary-btn mt-56">Créer un compte</Link>
-                    <Link to="/connexion" className="secondary-btn mt-[21px] ">Connexion</Link>
+                    <div className="w-[80%]">
+                        <Link to="/inscription" className="primary-btn mt-56">Créer un compte</Link>
+                        <Link to="/connexion" className="secondary-btn mt-[21px] ">Connexion</Link>
+                    </div>
 
 
                 </div>

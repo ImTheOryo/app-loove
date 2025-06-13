@@ -1,18 +1,26 @@
 import "./ReportModal.css";
 import Modal from "react-modal";
 import {FiX} from "react-icons/fi";
+import {useEffect, useState} from "react";
+import {API_BASE_URL} from "../../constants/Constants";
 
 function ReportModal({showModal, setShowModal, userID}) {
+    const [reason, setReason] = useState([]);
 
-    const reportReason = [
-        "Harcèlement ou propos abusifs",
-        "Menaces ou intimidation",
-        "Proposition de transferts d'argent ou d'investissements suspects",
-        "Utilisation de photos ou de fausses informations",
-        "Photos inappropriées (nudité, violence, etc…)",
-        "Publicité pour d’autres plateformes ou services",
-        "Autre…"
-    ];
+    const GetReportReasons = async () =>{
+        const res = await fetch(`${API_BASE_URL}/reason`,{
+            method: "GET",
+            headers: {Token: localStorage.getItem("token")},
+        });
+        if (res.status === 200){
+            const data = await res.json();
+            setReason(data.body);
+        }
+    }
+
+    useEffect(() => {
+        GetReportReasons();
+    }, []);
     return (
         <Modal
             isOpen={showModal}
@@ -37,9 +45,11 @@ function ReportModal({showModal, setShowModal, userID}) {
                 >
                     <option value="">Veuillez choisir une option</option>
                     {
-                        reportReason.map((reportReason, index) => (
-                            <option value={index}>{reportReason}</option>
-                        ))
+                        isNaN(reason) && (
+                            reason.map((reportReason, index) => (
+                                <option value={index + 1}>{reportReason}</option>
+                            ))
+                        )
                     }
                 </select>
             </div>

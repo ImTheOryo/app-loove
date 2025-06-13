@@ -1,9 +1,9 @@
 import "./ProfileInterest.css";
-import "../ProfileBio/ProfileBio.css";
-import { FaArrowLeft } from "react-icons/fa6";
+import "../../pages/ProfileSettings/ProfileSettings.css";
 import { API_BASE_URL } from "../../constants/Constants";
 import { useEffect, useState } from "react";
 import InterestTag from "../InterestTag/InterestTag";
+import {HiMiniXMark} from "react-icons/hi2";
 
 function ProfileInterest({ setChangeInterest, changeInterest }) {
     const [interests, setInterests] = useState([]);
@@ -49,8 +49,8 @@ function ProfileInterest({ setChangeInterest, changeInterest }) {
 
     return (
         <div className="profile-settings-div">
-            <button className="btn-back-profile" onClick={() => setChangeInterest(!changeInterest)}>
-                <FaArrowLeft />
+            <button className="profile-btn-close" onClick={() => setChangeInterest(!changeInterest)}>
+                <HiMiniXMark />
             </button>
             <h2>Mes intérêts</h2>
             <div className="profile-interests-div">

@@ -1,5 +1,5 @@
 .profile-interests-div {
-    @apply flex flex-wrap;
+    @apply flex flex-wrap pt-10;
 }
 
 .profile-interests-div div {

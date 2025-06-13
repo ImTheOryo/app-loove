@@ -1,0 +1,7 @@
+.sign-up-info {
+    @apply m-auto w-[80%] mb-auto h-full;
+}
+
+.sign-up-info h2 {
+    @apply text-3xl leading-tight;
+}

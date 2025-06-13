@@ -14,10 +14,8 @@ function Discovery() {
     const [userCount, setUserCount] = useState(0);
     const [currentUser, setCurrentUser] = useState(null);
     document.title = "Harmony | Découvertes";
-
     return (
         <div>
-
             <UserProfile showExtendProfile={showExtendProfile} setShowExtendProfile={setShowExtendProfile} userCount={userCount} setUserCount={setUserCount} setCurrentUser={setCurrentUser}/>
 
             <motion.div

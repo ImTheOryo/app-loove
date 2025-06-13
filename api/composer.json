@@ -7,13 +7,16 @@
       "App\\Core\\": "src/Core",
       "App\\Models\\": "src/Models",
       "App\\Repositories\\": "src/Repositories",
-      "App\\Services\\": "src/Services"
+      "App\\Services\\": "src/Services",
+      "App\\Middleware\\": "src/Middleware"
     }
   },
   "require": {
-    "phpmailer/phpmailer": "^6.9",
+    "phpmailer/phpmailer": "^6.10",
     "vlucas/phpdotenv": "^5.6",
     "firebase/php-jwt": "^6.11",
-    "pusher/pusher-php-server": "^7.2"
+    "pusher/pusher-php-server": "^7.2",
+    "pusher/pusher-push-notifications": "^2.0",
+    "guzzlehttp/guzzle": "^7.9"
   }
 }

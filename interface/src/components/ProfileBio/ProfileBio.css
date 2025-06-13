@@ -1,14 +1,14 @@
 .profile-settings-div {
-    @apply w-[90%] h-full m-auto;
+    @apply w-[90%] h-full m-auto pt-10;
     font-family: Nunito, sans-serif;
-}
-
-.btn-back-profile {
-    @apply p-3 text-3xl p-3 bg-[#E94057] text-white mt-3 rounded-[15px];
 }
 
 .profile-settings-div h2 {
     @apply p-3 text-3xl font-bold text-[#3B0A4F];
+}
+
+.profile-settings-div p {
+    @apply p-3 text-[#3B0A4F] mb-4;
 }
 
 .profile-settings-div textarea {

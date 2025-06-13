@@ -1,11 +1,13 @@
 .ChatBubbleReceiver {
     @apply flex mb-2;
 }
+
 .ChatBubbleReceiver img {
-    @apply w-12 h-12 rounded-full mr-1 object-cover;
+    @apply w-12 min-w-12 h-12 min-h-12 rounded-full mr-1 object-cover;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
 }
+
 .message-receiver {
-    @apply bg-[#00000012] w-[100%] p-2 rounded-b-2xl rounded-tr-2xl;
-    overflow-wrap:  break-word;
+    @apply bg-[#00000012] w-full p-2 rounded-b-2xl rounded-tr-2xl;
+    overflow-wrap: anywhere;
 }

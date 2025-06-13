@@ -18,6 +18,8 @@ import Chat from "./pages/Chat/Chat";
 import Likes from "./pages/Likes/Likes";
 import ProfileSummary from "./pages/ProfileSummary/ProfileSummary";
 import ProfileSettings from "./pages/ProfileSettings/ProfileSettings";
+import Signup from "./pages/Signup/Signup";
+import Settings from "./pages/Settings/Settings";
 
 
 Modal.setAppElement('#root');
@@ -29,6 +31,12 @@ const router = createBrowserRouter([
             {path: "/", element: <Home/>},
             {path: "/connexion", element: <Login/>},
         ],
+    },
+    {
+      element: <Signup/>,
+      children: [
+          {path: "/inscription", element: ""},
+      ]
     },
     {
         element: <PrivateRoute allowedRoles={["admin"]} children={<Admin/>}></PrivateRoute>,
@@ -74,6 +82,12 @@ const router = createBrowserRouter([
         element: <PrivateRoute allowedRoles={["user"]} children={<ProfileSettings/>}></PrivateRoute>,
         children: [
             {path: "/profile/settings", element: ""}
+        ]
+    },
+    {
+        element: <PrivateRoute allowedRoles={["user"]} children={<Settings/>}></PrivateRoute>,
+        children: [
+            {path: "/parametres", element: ""}
         ]
     }
 ]);

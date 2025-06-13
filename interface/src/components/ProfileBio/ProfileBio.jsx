@@ -1,7 +1,8 @@
 import "./ProfileBio.css";
-import { FaArrowLeft } from "react-icons/fa6";
+import "../../pages/ProfileSettings/ProfileSettings.css";
 import {useEffect, useState} from "react";
 import {API_BASE_URL} from "../../constants/Constants";
+import {HiMiniXMark} from "react-icons/hi2";
 
 function ProfileBio({setChangeBio, changeBio}) {
     const [bio, setBio] = useState(false);
@@ -34,8 +35,8 @@ function ProfileBio({setChangeBio, changeBio}) {
 
     return (
         <div className="profile-settings-div">
-            <button className="btn-back-profile" onClick={() => setChangeBio(!changeBio)}>
-                <FaArrowLeft/>
+            <button className="profile-btn-close" onClick={() => setChangeBio(!changeBio)}>
+                <HiMiniXMark className="text-l"/>
             </button>
             <h2>
                 Ma bio

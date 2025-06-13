@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\UserList;
 use App\Services\JwtService;
 
-class UserRepository extends BaseRepository
-{
+class UserRepository extends BaseRepository {
 
     public function log_in(string $email, string $password): void
     {
@@ -41,16 +41,24 @@ class UserRepository extends BaseRepository
         }
     }
 
-    public function get_all_users(): void
-    {
+    public function get_all_users(): void {
+        $table = [];
+
         $result = $this
-            ->query("SELECT id, name, mail FROM user")
+            ->query("SELECT id, first_name, mail, birth_date, status  FROM user")
             ->fetchAll();
 
         if (empty($result)) {
-            response_json(204, "no users");
+            response_json(204);
         } else {
-            response_json(200, $result);
+           foreach ($result as $user) {
+               $image = $this
+                   ->query("SELECT image_name FROM image WHERE user_id= :id AND image_primary = 1")
+                   ->fetch(['id' => $user['id']]);
+               $table[] = new UserList($user, $image);
+           }
+
+           response_json(200, $table);
         }
     }
 

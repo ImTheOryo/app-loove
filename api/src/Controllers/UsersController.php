@@ -24,8 +24,7 @@ class UsersController extends BaseController {
 
     }
 
-    public function get_all_users()
-    {
+    public function get_all_users(): void {
         $this->repository->get_all_users();
     }
 
