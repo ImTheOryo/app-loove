@@ -1,0 +1,19 @@
+.email-sign-up {
+    @apply m-auto w-[80%] mb-auto h-full ;
+}
+
+.email-sign-up h2 {
+    @apply text-3xl leading-tight;
+}
+
+.email-sign-up p {
+    @apply text-gray-600 text-[14px] mt-3;
+}
+
+.sign-up-mail-input {
+    @apply mt-[55px] mb-[55px] relative w-[100%] max-w-md mx-auto h-[56px] ;
+}
+
+.email-sign-up button {
+    @apply mb-5;
+}

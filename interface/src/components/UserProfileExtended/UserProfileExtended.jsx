@@ -8,10 +8,12 @@ import InterestTag from "../InterestTag/InterestTag";
 import QuestionMusicCard from "../QuestionMusicCard/QuestionMusicCard";
 import { PiImagesDuotone } from "react-icons/pi";
 import { useEffect, useState } from "react";
+import ReportModal from "../ReportModal/ReportModal";
 
-function UserProfileExtended({ setShowExtendProfile, userID }) {
+function UserProfileExtended({ setShowExtendProfile, userID, report }) {
     const [userInfo, setUserInfo] = useState(null);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
+    const [showModal, setShowModal] = useState(false);
     const styles = isLargeScreen ? { width: '400px', margin: 'auto', overflowY: 'scroll' } : {};
 
     const getUserInfos = async () => {
@@ -36,6 +38,9 @@ function UserProfileExtended({ setShowExtendProfile, userID }) {
 
     return (
         <div className="user-profile-extended" style={styles}>
+
+            <ReportModal userID={userID} setShowModal={setShowModal} showModal={showModal}/>
+
             <button className="user-btn-unexpanded" onClick={() => setShowExtendProfile(prev => !prev)}>
                 <HiMiniXMark className="text-3xl text-white" />
             </button>
@@ -106,6 +111,16 @@ function UserProfileExtended({ setShowExtendProfile, userID }) {
                             ))}
                         </div>
                     </article>
+                    {
+                        report && (
+                            <button
+                                className="primary-btn"
+                                onClick={() => {setShowModal(!showModal)}}
+                            >
+                                Signaler
+                            </button>
+                        )
+                    }
                 </section>
             </div>
         </div>

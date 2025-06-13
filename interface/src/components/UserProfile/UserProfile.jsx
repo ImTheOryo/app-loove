@@ -72,7 +72,7 @@ function UserProfile({showExtendProfile, setShowExtendProfile, userCount, setUse
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <UserProfileExtended key={Math.random()} setShowExtendProfile={setShowExtendProfile} userID={userInfo['infos']['id']}/>
+                            <UserProfileExtended key={Math.random()} setShowExtendProfile={setShowExtendProfile} userID={userInfo['infos']['id']} report={true}/>
                         </motion.div>
                     )}
                 </AnimatePresence>

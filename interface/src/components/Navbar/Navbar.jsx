@@ -1,10 +1,9 @@
 import "./Navbar.css";
 import {Link, useLocation} from "react-router";
 import { GoHome } from "react-icons/go";
-import { FiCompass } from "react-icons/fi";
-import { PiChatTeardropText } from "react-icons/pi";
+import { CiHeart } from "react-icons/ci";
+import { PiChatTeardropText, PiGear } from "react-icons/pi";
 import { MdPersonOutline } from "react-icons/md";
-import { PiGear } from "react-icons/pi";
 
 
 function Navbar () {
@@ -18,7 +17,7 @@ function Navbar () {
                 </Link>
 
                 <Link to="/likes" id="navbar-grid-2" className={currentPath === "/likes" ? "navbar-selected" : ""}>
-                    <FiCompass className="text-[24px]"/>
+                    <CiHeart className="text-[24px]"/>
                 </Link>
 
                 <Link to="/conversations" id="navbar-grid-3" className={currentPath === "/conversations" ? "navbar-selected" : ""}>

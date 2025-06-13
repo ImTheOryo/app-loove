@@ -10,7 +10,6 @@ function Header() {
                <Link to="/">
                    <img src={LogoWhite} alt="" className="w-[125px]"/>
                </Link>
-               <RxHamburgerMenu className="text-white text-4xl mr-5"/>
            </nav>
 
            <nav className="fixed top-0 flex justify-between items-center w-full" id="header-desktop">

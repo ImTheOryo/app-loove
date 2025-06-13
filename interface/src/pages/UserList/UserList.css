@@ -1,19 +1,118 @@
+.user-list-container {
+    @apply rounded-[20px];
+    padding: 2rem;
+    font-family: "Nunito", sans-serif;
+    background-color: white;
+}
+
 .user-list-search-bar {
-    @apply flex m-auto justify-center w-[80%] bg-[#FAFAFA] px-2 py-5 mt-11 rounded-[10px];
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    background-color: #FAFAFA;
+    border-radius: 12px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    border: 1px solid #E0E0E0;
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    color: #808080;
+    margin-right: 10px;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 16px;
+    color: #808080;
 }
 
 .user-list-table {
-    @apply w-[100%] mt-7 text-center m-auto;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.user-list-table-thead tr {
-    font-family: Nunito, sans-serif;
-    border-bottom: 1px solid #CFCFCF;
-    border-top: 1px solid #CFCFCF;
+.user-list-table th, .user-list-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #E0E0E0;
+    font-size: 14px;
 }
 
-.user-list-img {
-    @apply rounded-full w-[40px] h-[40px];
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.7);
+.user-list-table thead th {
+
+    color: #000;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
 }
+
+.user-list-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.user-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    @apply object-cover;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.email-link a {
+    color: #1a0dab;
+    text-decoration: underline;
+}
+
+.menu-icon {
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.pagination {
+    @apply flex items-center;
+    justify-content: center;
+    list-style: none;
+    padding: 20px 0;
+    gap: 12px;
+    font-family: sans-serif;
+}
+
+.pagination li {
+    color: #a0aec0;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.pagination li:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .active {
+    background-color: #ffccd1;
+    color: #E94057;
+    font-weight: bold;
+}
+
+.pagination .disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+

@@ -1,0 +1,24 @@
+.what-am-i-sign-up {
+    @apply m-auto w-[80%] mb-auto h-full;
+}
+
+.what-am-i-sign-up h2 {
+    @apply text-3xl leading-tight;
+}
+
+.what-am-i-sign-up div {
+    @apply flex flex-col items-center justify-center w-[90%] mx-auto;
+}
+
+.label-input {
+    @apply w-full flex justify-between border-[2px] border-gray-200 rounded-[15px] p-5 mt-5;
+}
+
+.label-input input {
+    @apply hidden;
+}
+
+.input-selected {
+    @apply border-none bg-[#E94057FF] text-white;
+}
+

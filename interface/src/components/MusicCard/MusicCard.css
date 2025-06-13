@@ -1,0 +1,35 @@
+.music-card-article {
+    @apply bg-white shadow-lg border shadow-red-200 rounded-[20px] w-[90%] m-auto flex flex-col justify-center mb-10 py-4 relative;
+}
+
+.music-card-article button {
+    @apply w-max self-end mr-4 bg-red-600 text-white p-1 px-3 rounded-lg shadow-sm hover:bg-red-700;
+}
+
+.music-card-question {
+    @apply text-lg font-medium text-center text-gray-700;
+}
+
+.music-card-content {
+    @apply flex items-center gap-6 m-auto;
+}
+
+.music-card-image img {
+    @apply w-[80px] h-[80px] shadow-lg rounded-[20px];
+}
+
+.music-card-text {
+    @apply flex flex-col;
+}
+
+.music-card-text h3 {
+    @apply text-xl font-semibold text-gray-800 mb-1;
+}
+
+.music-card-text p {
+    @apply text-sm text-gray-600 p-0;
+}
+
+.placeholder-card {
+    @apply flex justify-center items-center h-[120px] bg-gray-100 border-dashed border-2 border-gray-300 rounded-lg;
+}

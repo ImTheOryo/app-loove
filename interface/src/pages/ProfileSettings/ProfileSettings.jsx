@@ -10,6 +10,8 @@ import {useState} from "react";
 import UserProfileExtended from "../../components/UserProfileExtended/UserProfileExtended";
 import ProfileBio from "../../components/ProfileBio/ProfileBio";
 import ProfileInterest from "../../components/ProfileInterest/ProfileInterest";
+import ProfileMusic from "../../components/ProfileMusic/ProfileMusic";
+import ProfileGeneralInfo from "../../components/ProfileGeneralInfo/ProfileGeneralInfo";
 
 function ProfileSettings() {
     const navigate = useNavigate();
@@ -26,15 +28,28 @@ function ProfileSettings() {
 
     return (
         <div className="profile-div">
-            <div className={showProfile ? "" : "hidden"}>
+
+            {showProfile && (
                 <UserProfileExtended key={Math.random()} userID={localStorage.getItem("id")} setShowExtendProfile={setShowProfile} />
-            </div>
-            <div className={changeBio ? "" : "hidden"}>
-                <ProfileBio key={Math.random()} changeBio={changeBio} setChangeBio={setChangeBio} />
-            </div>
-            <div className={changeInterest ? "" : "hidden"}>
-                <ProfileInterest key={Math.random()} changeInterest={changeInterest} setChangeInterest={setChangeInterest} />
-            </div>
+            )}
+
+             {changeBio && (
+                 <ProfileBio key={Math.random()} changeBio={changeBio} setChangeBio={setChangeBio} />
+             )}
+
+            {changeInfos && (
+                <ProfileGeneralInfo changeInfos={changeInfos} setChangeInfos={setChangeInfos}/>
+            )}
+
+             {changeInterest && (
+                 <ProfileInterest key={Math.random()} changeInterest={changeInterest} setChangeInterest={setChangeInterest} />
+             )}
+
+            {changeMusic && (
+                <ProfileMusic key={Math.random()} changeMusic={changeMusic} setChangeMusic={setChangeMusic}/>
+            )}
+
+
             <div className={`w-[95%] m-auto ${showProfile || changeBio || changePhotos || changeInfos || changeInterest || changeMusic ? 'hidden' : ''}`}>
                 <div className="profile-header">
                     <button className="profile-btn-close" onClick={HandleBackButton}>
@@ -60,7 +75,10 @@ function ProfileSettings() {
                         </p>
                     </article>
 
-                    <article className="setting-article" onClick={() => setChangeBio(!changeBio)} >
+                    <article
+                        className="setting-article"
+                        onClick={() => setChangeBio(!changeBio)}
+                    >
                         <div>
                             <GiWhiteBook className="text-3xl"/>
                             <h2>
@@ -72,7 +90,10 @@ function ProfileSettings() {
                         </p>
                     </article>
 
-                    <article className="setting-article">
+                    <article
+                        className="setting-article"
+                        onClick={() => setChangeInfos(!changeInfos)}
+                    >
                         <div>
                             <FaIdCard className="text-3xl"/>
                             <h2>
@@ -84,7 +105,10 @@ function ProfileSettings() {
                         </p>
                     </article>
 
-                    <article className="setting-article" onClick={() => setChangeInterest(!changeInterest)} >
+                    <article
+                        className="setting-article"
+                        onClick={() => setChangeInterest(!changeInterest)}
+                    >
                         <div>
                             <MdInterests className="text-3xl"/>
                             <h2>
@@ -96,7 +120,10 @@ function ProfileSettings() {
                         </p>
                     </article>
 
-                    <article className="setting-article">
+                    <article
+                        className="setting-article"
+                        onClick={()=> setChangeMusic(!changeMusic)}
+                    >
                         <div>
                             <GiMusicalScore className="text-3xl"/>
                             <h2>
