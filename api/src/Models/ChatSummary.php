@@ -10,6 +10,5 @@ class ChatSummary {
         public string $image_name,
         public string | int $count_message,
     )
-    {
-    }
+    {}
 }

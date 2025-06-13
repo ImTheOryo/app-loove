@@ -19,7 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 
 
+use App\Controllers\AdminController;
 use App\Controllers\ProfileController;
+use App\Controllers\RegisterController;
 use App\Controllers\UsersController;
 use App\Controllers\DiscoveryController;
 use App\Controllers\ChatController;
@@ -34,15 +36,29 @@ $dotenv->safeLoad();
 
 $routeur = new Routeur();
 
-// Login / Register [All]
+// Admin side [Admin]
+$routeur->addRoute(['GET'], "/users", UsersController::class, 'get_all_users', $_ENV['JWT_ADMIN_KEY']);
+$routeur->addRoute(['GET'], "/admin/{admin_id}", AdminController::class, 'get_admin', $_ENV['JWT_ADMIN_KEY']);
+
+// Login [All]
 $routeur->addRoute(['POST'], "/login", UsersController::class, 'login');
+
+// Register [All]
+$routeur->addRoute(['POST'], "/register/mail", RegisterController::class, 'register_mail');
+$routeur->addRoute(['POST'], "/register/verify", RegisterController::class, 'verify_mail');
+$routeur->addRoute(['POST'], "/register/password", RegisterController::class, 'register_password');
+$routeur->addRoute(['POST'], "/register/infos", RegisterController::class, 'register_infos');
+$routeur->addRoute(['POST'], "/register/gender", RegisterController::class, 'register_gender');
+$routeur->addRoute(['POST'], "/register/looking", RegisterController::class, 'register_looking');
+$routeur->addRoute(['POST'], "/register/relation", RegisterController::class, 'register_relation');
+$routeur->addRoute(['POST'], "/register/images", RegisterController::class, 'register_images');
+$routeur->addRoute(['POST'], "/register/biography", RegisterController::class, 'register_biography');
 
 // Discovery [User]
 $routeur->addRoute(['GET'], "/discovery/{user_id}", DiscoveryController::class, 'get_discovery', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['GET'], "/filter/{user_id}", DiscoveryController::class, 'get_filter', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['POST'], "/like/{user_id}/{user_like}", DiscoveryController::class, 'like_user',  $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['POST'], "/skip/{user_id}/{user_skip}", UsersController::class, 'skip_user',   $_ENV['JWT_USER_KEY']);
-
-
 
 // See Who Like [User]
 $routeur->addRoute(['GET'], "/likes/{user_id}", DiscoveryController::class, 'get_likes', $_ENV['JWT_USER_KEY']);
@@ -60,13 +76,26 @@ $routeur->addRoute(['GET'], "/reason", ReportController::class, 'get_report_reas
 // Profile [User]
 $routeur->addRoute(['GET'], "/profile/{user_id}", ProfileController::class, 'get_user', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['GET'], "/profile/extended/{user_id}", ProfileController::class, 'get_user_infos', $_ENV['JWT_USER_KEY']);
+
+// Profile Bio [User]
 $routeur->addRoute(['GET'], "/biography/{user_id}", ProfileController::class, 'get_biography', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['PATCH'], "/biography/{user_id}", ProfileController::class, 'update_biography', $_ENV['JWT_USER_KEY']);
+
+// Profile Hobbies [User]
 $routeur->addRoute(['GET'], "/hobbies", ProfileController::class, 'get_hobbies', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['GET'], "/hobby/{user_id}",  ProfileController::class, 'get_hobby', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['PATCH'], "/hobby/{user_id}/{hobby_id}", ProfileController::class, 'update_hobby', $_ENV['JWT_USER_KEY']);
 
-// Listing [Admin]
-$routeur->addRoute(['GET'], '/users', UsersController::class, 'get_all_users', $_ENV['JWT_ADMIN_KEY']);
+// Profile Musics [All]
+$routeur->addRoute(['GET'], "/musics/{user_id}", ProfileController::class, 'get_musics');
+$routeur->addRoute(['DELETE'], "/music/{qa_id}",  ProfileController::class, 'delete_music');
+$routeur->addRoute(['GET'], "/questions", ProfileController::class, 'get_questions');
+$routeur->addRoute(['GET'], "/music/title/{title}", ProfileController::class, 'get_music_title');
+$routeur->addRoute(['POST'], "/music/{user_id}", ProfileController::class, 'add_music');
+
+// Profile General Infos [User]
+$routeur->addRoute(['GET'], "/gender/{user_id}", ProfileController::class, 'get_gender', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['POST'], "/gender/{user_id}/{gender_id}", ProfileController::class, 'update_gender', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['GET'], "/relation/{user_id}", ProfileController::class, 'get_relation', $_ENV['JWT_USER_KEY']);
 
 new Kernel($routeur);

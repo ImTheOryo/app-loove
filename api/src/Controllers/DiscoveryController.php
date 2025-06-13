@@ -13,6 +13,11 @@ class DiscoveryController extends BaseController {
         $this->repository->get_discovery($user_id);
     }
 
+
+    public function get_filter(int $user_id): void {
+
+    }
+
     public function like_user (int $user_id, int $user_like): void {
         $this->repository->like_user($user_id, $user_like);
     }

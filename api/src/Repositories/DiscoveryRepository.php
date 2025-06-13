@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Services\NotificationService;
+
 class DiscoveryRepository extends BaseRepository{
 
     public function get_discovery (int $id): void {
@@ -38,28 +40,54 @@ class DiscoveryRepository extends BaseRepository{
         response_json(200, $result);
     }
 
-    public function like_user (int $user_id, int $user_like): void{
-
-        $count = $this
-            ->query("SELECT SUM(CASE WHEN user_1_skip = 0 THEN 1 ELSE 0 END) AS already_like, SUM(CASE WHEN user_1_skip = 1 THEN 1 ELSE 0 END) AS already_skip FROM `likes` WHERE user_id_1 = :user_id_1 AND user_id_2 = :user_id_2;")
-            ->fetch(['user_id_1' => $user_like, 'user_id_2' => $user_id])
+    public function like_user(int $user_id, int $user_like): void
+    {
+        $likeStatus = $this
+            ->query("
+        SELECT user_1_skip 
+        FROM likes 
+        WHERE user_id_1 = :user_like AND user_id_2 = :user_id
+        LIMIT 1
+        ")
+            ->fetch(['user_like' => $user_like, 'user_id' => $user_id])
         ;
 
-        if ($count["already_like"] == 0 && $count["already_skip"] == 0) {
+        if (!$likeStatus) {
 
             $this
-                ->query("INSERT INTO `likes` (user_id_1, user_id_2) VALUES (:user_id_1, :user_id_2)")
-                ->execute(['user_id_1' => $user_id,  'user_id_2' => $user_like])
+                ->query("INSERT INTO likes (user_id_1, user_id_2) VALUES (:user_id, :user_like)")
+                ->execute(['user_id' => $user_id, 'user_like' => $user_like])
             ;
-        }
-        else if ($count['already_like'] > 0){
+            response_json(200);
+        } elseif ($likeStatus['user_1_skip'] == 0) {
+
+            $user_names = $this
+                ->query("SELECT id, first_name FROM user WHERE id IN (:user_id, :user_like)")
+                ->fetchAll(['user_id' => $user_id, 'user_like' => $user_like])
+            ;
+
+            $names = [];
+            foreach ($user_names as $row) {
+                $names[$row['id']] = $row['first_name'];
+            }
+
+            $notification = new NotificationService();
+
+            $notification->send_notification_new_match($user_id, $names[$user_like]);
+            $notification->send_notification_new_match($user_like, $names[$user_id]);
+
             $chat_id = uniqid();
+
             $this
-                ->query("UPDATE `likes` SET is_match = 1, chat_id = :chat_id WHERE user_id_1 = :user_id_1 AND user_id_2 = :user_id_2")
-                ->execute(['user_id_1' => $user_like, 'user_id_2' => $user_id,  'chat_id' => $chat_id])
+                ->query("UPDATE likes SET is_match = 1, chat_id = :chat_id WHERE user_id_1 = :user_like AND user_id_2 = :user_id")
+                ->execute(['chat_id' => $chat_id, 'user_like' => $user_like, 'user_id' => $user_id])
             ;
+
+
+            response_json(200);
         }
     }
+
 
     public function skip_user (int $user_id, int $user_like): void
     {

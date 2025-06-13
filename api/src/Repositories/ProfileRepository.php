@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Services\SpotifyService;
+
 class ProfileRepository extends BaseRepository {
     public function get_user ($user_id): void{
 
@@ -122,5 +124,91 @@ class ProfileRepository extends BaseRepository {
             ;
             response_json(201);
         }
+    }
+
+    public function get_musics(int $user_id): void {
+        $spotify = new SpotifyService();
+        $result = [];
+        $res = $this
+            ->query("SELECT q.question, qa.answer, qa.id FROM question_answer AS qa LEFT JOIN question AS q ON q.id = qa.id_question WHERE id_user = :user_id")
+            ->fetchAll(["user_id" => $user_id])
+        ;
+
+        empty($res) ?  response_json(204) : null;
+
+        foreach ($res as $music) {
+            $result[] = [
+                "question_id" => $music['id'],
+                "question" => $music['question'],
+                "answer" => $spotify->get_infos_by_id_track($music['answer'])
+            ];
+        }
+
+        response_json(200, $result);
+    }
+
+    public function delete_music(int $qa_id): void {
+        $this
+            ->query("DELETE FROM question_answer WHERE id = :id")
+            ->execute(["id" => $qa_id])
+        ;
+
+        response_json(200);
+    }
+
+    public function get_questions(): void {
+        $res = $this
+            ->query("SELECT * FROM question")
+            ->fetchAll()
+        ;
+        response_json(200, $res);
+    }
+
+    public function get_music_title(string $title): void {
+        $spotify = new SpotifyService();
+        $result = $spotify->get_music_by_title($title);
+
+        response_json(200, $result);
+
+    }
+
+    public function add_music($user_id, $id_question, $answer): void{
+        $this
+            ->query("INSERT INTO question_answer (id_question, id_user, answer) VALUES (:id_question, :id_user, :answer)")
+            ->execute(["id_question" => $id_question, "id_user" => $user_id, "answer" => $answer])
+        ;
+
+        response_json(200);
+    }
+
+    public function get_gender($user_id): void {
+        $gender = $this
+            ->query("SELECT gender_id FROM user WHERE id = :user_id")
+            ->fetch(["user_id" => $user_id])
+        ;
+
+        response_json(200, $gender);
+    }
+
+    public function update_gender (int $user_id, int $gender_id): void {
+        try {
+            $this
+                ->query("UPDATE user SET gender_id = :gender_id WHERE id = :user_id")
+                ->execute(["user_id" => $user_id, "gender_id" => $gender_id])
+            ;
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+        }
+
+        response_json(200);
+    }
+
+    public function get_relation (int $user_id): void {
+        $res = $this
+            ->query("SELECT search_type_id FROM user WHERE id = :user_id")
+            ->fetch(["user_id" => $user_id])
+        ;
+
+        response_json(200, $res);
     }
 }
