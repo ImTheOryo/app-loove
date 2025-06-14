@@ -20,20 +20,10 @@ export class DiscoveryService {
     }
 
     async ActionUser(action, user){
-        try {
-            const res = await fetch(`${API_BASE_URL}/${action}/${localStorage.getItem('id')}/${user}`, {
-                method: "POST",
-                headers: { "Token": localStorage.getItem("token") },
-            })
 
-            if (!res.ok) {
-                new Error(`Erreur HTTP : ${res.status}!`);
-            }
-
-            return res;
-        } catch (error) {
-            console.error("Erreur lors du like :", error);
-            throw error;
-        }
+        await fetch(`${API_BASE_URL}/${action}/${localStorage.getItem('id')}/${user}`, {
+            method: "POST",
+            headers: { "Token": localStorage.getItem("token") },
+        })
     }
 }

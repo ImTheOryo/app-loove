@@ -42,6 +42,15 @@ function ProfileLookingFor ({ showRelation, setShowRelation}) {
         }
     }
 
+    const SaveRelation = async () => {
+        console.log(selectedIndex)
+        await fetch(`${API_BASE_URL}/relation/${localStorage.getItem('id')}/${selectedIndex}`,{
+            method: 'PATCH',
+            headers: {Token: localStorage.getItem('token')}
+        })
+        setShowRelation(!showRelation);
+    }
+
     useEffect(() => {
         GetRelation()
     }, []);
@@ -84,6 +93,9 @@ function ProfileLookingFor ({ showRelation, setShowRelation}) {
 
             <button
                 className="primary-btn mt-16"
+                onClick={()=>{
+                    SaveRelation()
+                }}
             >
                 Sauvegarder
             </button>
