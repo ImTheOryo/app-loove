@@ -78,8 +78,7 @@ class RegisterController extends BaseController {
         $images = $_FILES;
         foreach ($images as $image) {
             try {
-                $ext =  pathinfo($image["name"],PATHINFO_EXTENSION);
-                $name = uniqid() . "." . $ext;
+                $name = uniqid() . ".webp";
                 move_uploaded_file($image["tmp_name"], $_SERVER["DOCUMENT_ROOT"] . "upload/" . $name );
                 $imageArray[] = [
                     "name" => $name,
