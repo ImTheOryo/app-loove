@@ -3,7 +3,7 @@
 #user-navbar {
     @apply w-[90%] h-[64px] bg-[#FFFFFF] items-center rounded-[99px];
     position: fixed;
-    bottom: 20px;
+    bottom: 5px;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 8px 0 40px 0 rgba(233, 64, 87, 0.15);

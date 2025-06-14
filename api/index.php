@@ -95,7 +95,8 @@ $routeur->addRoute(['POST'], "/music/{user_id}", ProfileController::class, 'add_
 
 // Profile General Infos [User]
 $routeur->addRoute(['GET'], "/gender/{user_id}", ProfileController::class, 'get_gender', $_ENV['JWT_USER_KEY']);
-$routeur->addRoute(['POST'], "/gender/{user_id}/{gender_id}", ProfileController::class, 'update_gender', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['PATCH'], "/gender/{user_id}/{gender_id}", ProfileController::class, 'update_gender', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['GET'], "/relation/{user_id}", ProfileController::class, 'get_relation', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['PATCH'], "/relation/{user_id}/{relation_id}",  ProfileController::class, 'update_relation', $_ENV['JWT_USER_KEY']);
 
 new Kernel($routeur);

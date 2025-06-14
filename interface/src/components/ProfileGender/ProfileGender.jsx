@@ -11,7 +11,7 @@ function ProfileGender ({showGender, setShowGender}) {
 
     const SaveGender = async () => {
         await fetch(`${API_BASE_URL}/gender/${localStorage.getItem('id')}/${checked}`,{
-            method: 'POST',
+            method: 'PATCH',
             headers: {Token: localStorage.getItem('token')}
         })
         setShowGender(!showGender);
@@ -45,7 +45,7 @@ function ProfileGender ({showGender, setShowGender}) {
             <div>
                 {
                     table.map((item, index) => (
-                        <label className={`label-input ${checked === (index + 1) ? "input-selected" : ""}`}>
+                        <label className={`label-input ${checked == (index + 1) ? "input-selected" : ""}`}>
                             <input
                                 type="radio"
                                 name="gender"
@@ -57,7 +57,7 @@ function ProfileGender ({showGender, setShowGender}) {
                             />
                             {item}
 
-                            <FaCheck className={`text-right self-center ${checked === (index + 1) ? "text-white" : "text-gray-400"}`} />
+                            <FaCheck className={`text-right self-center ${checked == (index + 1) ? "text-white" : "text-gray-400"}`} />
                         </label>
                     ))
                 }

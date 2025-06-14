@@ -15,7 +15,7 @@ function ActionButtons({showExtendProfile, setShowExtendProfile, currentUser, us
     }
 
     async function likeUser(){
-        const res = await discovery.ActionUser("like",  currentUser);
+        await discovery.ActionUser("like",  currentUser);
         setShowExtendProfile(false);
         const count = userCount + 1;
         setUserCount(count);
@@ -28,7 +28,7 @@ function ActionButtons({showExtendProfile, setShowExtendProfile, currentUser, us
 
 
     return (
-        <div id="action-buttons" style={{bottom: showExtendProfile ? "10px" : "105px", opacity: showExtendProfile ? 0.85 : 1}} >
+        <div id="action-buttons" style={{bottom: showExtendProfile ? "0px" : "90px", opacity: showExtendProfile ? 0.85 : 1}} >
             <button id="skip-btn" onClick={skipUser}>
                 <IoClose/>
             </button>

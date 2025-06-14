@@ -211,4 +211,18 @@ class ProfileRepository extends BaseRepository {
 
         response_json(200, $res);
     }
+
+    public function update_relation (int $user_id, int $search_type_id): void {
+        try {
+            $this
+                ->query("UPDATE user SET search_type_id = :search WHERE id = :user_id")
+                ->execute(["user_id" => $user_id, "search" => $search_type_id])
+            ;
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+        }
+
+        response_json(200);
+    }
+
 }
