@@ -77,4 +77,8 @@ class ProfileController extends BaseController {
     public function get_relation (int $user_id): void {
         $this->repository->get_relation($user_id);
     }
+
+    public function update_relation (int $user_id, int $relation_id): void {
+        $this->repository->update_relation($user_id, $relation_id);
+    }
 }
