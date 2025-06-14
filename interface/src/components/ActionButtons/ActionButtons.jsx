@@ -28,7 +28,7 @@ function ActionButtons({showExtendProfile, setShowExtendProfile, currentUser, us
 
 
     return (
-        <div id="action-buttons" style={{bottom: showExtendProfile ? "10px" : "105px", opacity: showExtendProfile ? 0.85 : 1}} >
+        <div id="action-buttons" style={{bottom: showExtendProfile ? "0px" : "90px", opacity: showExtendProfile ? 0.85 : 1}} >
             <button id="skip-btn" onClick={skipUser}>
                 <IoClose/>
             </button>
