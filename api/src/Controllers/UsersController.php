@@ -28,4 +28,18 @@ class UsersController extends BaseController {
         $this->repository->get_all_users();
     }
 
+    public function set_localisation(): void {
+        try {
+            $raw = file_get_contents('php://input');
+            $obj = json_decode($raw);
+            $id = $obj->id;
+            $latitude = $obj->latitude;
+            $longitude = $obj->longitude;
+            $this->repository->set_localisation($id, $latitude, $longitude);
+        } catch (Exception $e) {
+            response_json(400, $e->getMessage());
+        }
+
+    }
+
 }

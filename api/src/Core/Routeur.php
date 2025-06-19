@@ -37,7 +37,9 @@ class Routeur
                         $jwt = new JwtService();
                         $header = $jwt->verify(getallheaders()['Token']);
                         if (isset($header->status)) {
-                            if ($header->status !== $route->getRestriction()) {
+                            if ($header->status === 'admin') {
+                                $ok = true;
+                            } else if ($header->status !== $route->getRestriction()) {
                                 response_json(403);
                             }
                         } else {

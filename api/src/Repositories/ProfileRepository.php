@@ -20,7 +20,6 @@ class ProfileRepository extends BaseRepository {
         $result = [];
         $images = [];
         $hobbies = [];
-        $musics = [];
 
         $res_user_infos = $this
             ->query("SELECT u.first_name, u.age, u.current, u.search_type_id, u.biography FROM user AS u WHERE id = :id")

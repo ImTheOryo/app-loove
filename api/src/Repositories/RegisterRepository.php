@@ -13,7 +13,7 @@ class RegisterRepository extends BaseRepository {
 
         $code = rand(1000, 9999);
 
-        $insert_mail = $this
+        $this
             ->query("INSERT INTO user (mail, verify_code) VALUES (:mail, :code)")
             ->execute(['mail' => $email,  'code' => $code])
         ;
@@ -23,7 +23,7 @@ class RegisterRepository extends BaseRepository {
         $mail->send_to($email);
         $mail->set_subject("Code de vérification");
 
-        $mail->set_HTML_body_with_code("/../../templates/Mail.php",['code' => "$code"] );
+        $mail->set_HTML_body_with_code("/../../templates/VerificationMail.php",['code' => "$code"] );
 
         $mail->send_mail();
 
