@@ -12,7 +12,7 @@ import {useEffect} from "react";
 function Admin() {
     const location = useLocation();
     const changeCurrentTitle = () => {
-        const raw = location.pathname.replace("/administrateur/", "");
+        const raw = location.pathname.replace("/administrateur/", "").split('/')[0]; // Garde seulement la première partie
         const formatted = raw
             .replace(/-/g, ' ')
             .replace(/^./, c => c.toUpperCase());
@@ -49,10 +49,6 @@ function Admin() {
                         <LuClipboardList className="text-4xl"/>
                         <p>Dashboard</p>
                     </Link>
-                    <Link to="/administrateur/statistiques" className="admin-btn">
-                        <AiOutlineLineChart className="text-4xl"/>
-                        <p>Statistiques</p>
-                    </Link>
                     <Link to="/administrateur/utilisateurs" className="admin-btn">
                         <TbUsersGroup className="text-4xl"/>
                         <p>Utilisateurs</p>
@@ -72,7 +68,6 @@ function Admin() {
                 <Outlet/>
             </div>
         </div>
-
     )
 }
 

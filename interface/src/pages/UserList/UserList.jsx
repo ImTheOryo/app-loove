@@ -4,6 +4,7 @@ import { API_BASE_URL } from "../../constants/Constants";
 import { useEffect, useState } from "react";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import ReactPaginate from 'react-paginate';
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 function UserList() {
     const [users, setUsers] = useState([]);
@@ -36,14 +37,7 @@ function UserList() {
 
     return (
         <div className="user-list-container">
-            <div className="user-list-search-bar">
-                <PiMagnifyingGlass className="search-icon" />
-                <input
-                    type="text"
-                    placeholder="Recherchez par un ID, prénom, mail, ou autre"
-                    className="search-input"
-                />
-            </div>
+            <SearchBar/>
             {
                 isNaN(users) && (
                     <>

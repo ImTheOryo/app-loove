@@ -1,16 +1,15 @@
 import "./UserProfile.css";
-import {DiscoveryService} from "../../services/DiscoveryService";
+import { DiscoveryService } from "../../services/DiscoveryService";
 import { LuArrowUp } from "react-icons/lu";
 import { AnimatePresence, motion } from "motion/react";
-import {useEffect, useState} from "react";
-import {API_BASE_URL} from "../../constants/Constants";
+import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../constants/Constants";
 import UserProfileExtended from "../UserProfileExtended/UserProfileExtended";
 
-function UserProfile({showExtendProfile, setShowExtendProfile, userCount, setUserCount, setCurrentUser}) {
+function UserProfile({ showExtendProfile, setShowExtendProfile, userCount, setUserCount, setCurrentUser }) {
     const discovery = new DiscoveryService();
     const [users, setUsers] = useState([]);
-    let images = [];
-
+    const userInfo = users[userCount] ? users[userCount] : null;
 
     const fetchUsers = async () => {
         try {
@@ -28,11 +27,11 @@ function UserProfile({showExtendProfile, setShowExtendProfile, userCount, setUse
     }, []);
 
 
-    const userInfo = users[userCount] ? users[userCount] : null;
+    if (userInfo) {
+        const sortedImages = userInfo['image'];
 
-    if (isNaN(userInfo)){
-        setCurrentUser(userInfo['infos']['id'])
-        const sortedImages = userInfo['image']
+        setCurrentUser(userInfo['infos']['id']);
+        console.log(userInfo['infos']['id'])
 
         return (
             <div>
@@ -46,22 +45,30 @@ function UserProfile({showExtendProfile, setShowExtendProfile, userCount, setUse
                             transition={{ duration: 0.2 }}
                             id="user-profile"
                         >
-                            <img src={`${API_BASE_URL}/upload/${sortedImages[0]['image_name']}`} alt="" loading="lazy"/>
+                            <div>
+                                <p className="bg-my-red w-max p-2 rounded-[5px] ml-2 absolute top-4">
+                                    {userInfo['distance']}
+                                </p>
+                                <img
+                                    src={`${API_BASE_URL}/upload/${sortedImages[0]['image_name']}`}
+                                    alt=""
+                                    loading="lazy"
+                                />
+
+                            </div>
+
                             <div>
                                 <h2 className="font-nunito-bold">
                                     {userInfo['infos']['first_name']}, {userInfo['infos']['age']}
                                 </h2>
-                                <p>
-                                    {userInfo['infos']['current']}
-                                </p>
-                                <button id="user-profile-expand" onClick={()=> setShowExtendProfile(prev => !prev)}>
-                                    <LuArrowUp className="text-3xl text-white"/>
+                                <p>{userInfo['infos']['current']}</p>
+                                <button id="user-profile-expand" onClick={() => setShowExtendProfile((prev) => !prev)}>
+                                    <LuArrowUp className="text-3xl text-white" />
                                 </button>
                             </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
-
 
                 <AnimatePresence>
                     {showExtendProfile && (
@@ -72,21 +79,20 @@ function UserProfile({showExtendProfile, setShowExtendProfile, userCount, setUse
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <UserProfileExtended key={Math.random()} setShowExtendProfile={setShowExtendProfile} userID={userInfo['infos']['id']} report={true}/>
+                            <UserProfileExtended
+                                key={Math.random()}
+                                setShowExtendProfile={setShowExtendProfile}
+                                userID={userInfo['infos']['id']}
+                                report={true}
+                            />
                         </motion.div>
                     )}
                 </AnimatePresence>
-
             </div>
-
-        )
+        );
     }
-    return (
-        <div>
-            en cours
-        </div>
-    )
 
+    return <div>en cours</div>;
 }
 
 export default UserProfile;

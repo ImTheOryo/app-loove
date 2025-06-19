@@ -19,6 +19,26 @@ export class DiscoveryService {
         }
     }
 
+    SetLocalisation (){
+        if (navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(
+                async (position) =>{
+                    await fetch(`${API_BASE_URL}/localisation`,{
+                        method: "POST",
+                        headers: {Token: localStorage.getItem("token")},
+                        body: JSON.stringify({
+                            id: localStorage.getItem("id"),
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                        })
+                    });
+                });
+
+            return true;
+        }
+        return false;
+    }
+
     async ActionUser(action, user){
 
         await fetch(`${API_BASE_URL}/${action}/${localStorage.getItem('id')}/${user}`, {

@@ -20,6 +20,11 @@ import ProfileSummary from "./pages/ProfileSummary/ProfileSummary";
 import ProfileSettings from "./pages/ProfileSettings/ProfileSettings";
 import Signup from "./pages/Signup/Signup";
 import Settings from "./pages/Settings/Settings";
+import ReportList from "./pages/ReportList/ReportList";
+import ManageReport from "./pages/ManageReport/ManageReport";
+import Premium from "./pages/Premium/Premium";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 
 Modal.setAppElement('#root');
@@ -30,6 +35,7 @@ const router = createBrowserRouter([
         children: [
             {path: "/", element: <Home/>},
             {path: "/connexion", element: <Login/>},
+            {path: "/reset", element: <ForgotPassword/>}
         ],
     },
     {
@@ -41,10 +47,10 @@ const router = createBrowserRouter([
     {
         element: <PrivateRoute allowedRoles={["admin"]} children={<Admin/>}></PrivateRoute>,
         children: [
-            {path: "/administrateur/tableau-de-bord", element: "<h1>tableau-de-bord</h1>"},
-            {path: "/administrateur/statistiques", element: "<h1>statistiques</h1>"},
+            {path: "/administrateur/tableau-de-bord", element: <Dashboard/>},
             {path: "/administrateur/utilisateurs", element: <UserList/>},
-            {path: "/administrateur/moderation", element: "<h1>moderation</h1>"},
+            {path: "/administrateur/moderation", element: <ReportList/>},
+            {path: "/administrateur/moderation/:report_id", element: <ManageReport/>},
             {path: "/administrateur/monetisation", element: "<h1>monetisation</h1>"},
         ],
     },
@@ -82,6 +88,12 @@ const router = createBrowserRouter([
         element: <PrivateRoute allowedRoles={["user"]} children={<ProfileSettings/>}></PrivateRoute>,
         children: [
             {path: "/profile/settings", element: ""}
+        ]
+    },
+    {
+        element: <PrivateRoute allowedRoles={["user"]} children={<Premium/>}></PrivateRoute>,
+        children: [
+            {path: "/premium", element: ""}
         ]
     },
     {

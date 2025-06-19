@@ -5,11 +5,13 @@ import {toast} from "react-toastify";
 import {useState} from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import * as PusherPushNotifications from "@pusher/push-notifications-web";
+import {DiscoveryService} from "../../services/DiscoveryService";
 
 function Login () {
     const [showPassword, setShowPassword] = useState(false);
     document.title = "Harmony | Connexion";
     const navigate = useNavigate();
+    const discovery = new DiscoveryService();
 
     const handle_submit = async (event) => {
         const form = document.getElementById("login-form");
@@ -31,20 +33,25 @@ function Login () {
                     instanceId: "d3357f00-ef05-4ba6-afea-f741e8d1814e",
                 });
 
-                beamsClient
-                    .start()
-                    .then((beamsClient) => beamsClient.getDeviceId())
-                    .then(
-                        (deviceId) => console.log("Successfully registered with Beams. Device ID:", deviceId)
-                    )
-                    .then(() => beamsClient.addDeviceInterest(localStorage.getItem("id")))
-                    .then(() => beamsClient.getDeviceInterests())
-                    .then((interests) => console.log("Current interests:", interests))
-                    .catch(console.error)
-                ;
+                await beamsClient.clearAllState();
 
+                if (res.body[0].status === "admin") {
+                    navigate(`/administrateur/tableau-de-bord`)
+                } else {
+                    if (discovery.SetLocalisation()) {
+                        beamsClient
+                            .start()
+                            .then(() => beamsClient.addDeviceInterest(localStorage.getItem("id")))
+                            .catch(console.error)
+                        ;
 
-                res.body[0].status === "admin" ? navigate(`/administrateur/tableau-de-bord`) : navigate("/decouvertes");
+                        navigate("/decouvertes");
+                    } else {
+                        toast.error("Veuillez mettre en place la localisation s'il vous plait")
+                    }
+
+                }
+
 
             }
         }
@@ -87,7 +94,7 @@ function Login () {
                                 >
                                     {showPassword ? <FaEye/> : <FaEyeSlash/> }
                                 </button>
-                                <Link to="#" className="absolute bottom-[-20px] right-3 text-xs text-white hover:underline">
+                                <Link to="/reset" className="absolute bottom-[-20px] right-3 text-xs text-white hover:underline">
                                     Mot de passe oublié
                                 </Link>
                             </div>

@@ -1,15 +1,32 @@
 import Slider from "../Slider/Slider";
 import DoubleSlider from "../DoubleSlider/DoubleSlider";
 import "./PreferencesCard.css";
+import {API_BASE_URL} from "../../constants/Constants";
 
 function PreferencesCard({setShowPreferences, selected, setSelected, range, setRange, minAge, setMinAge, maxAge, setMaxAge}) {
 
     const options = [
-        { value: "girls", label: "Femmes" },
-        { value: "boys", label: "Hommes" },
-        { value: "both", label: "Tous" },
+        { value: 2, label: "Femmes" },
+        { value: 1, label: "Hommes" },
+        { value: 3, label: "Tous" },
     ];
 
+    const SendChangeFilter = async () => {
+        try {
+            await fetch(`${API_BASE_URL}/filter/${localStorage.getItem("id")}`, {
+                method: "PATCH",
+                headers: {Token: localStorage.getItem("token")},
+                body: JSON.stringify({
+                    minAge: minAge,
+                    maxAge: maxAge,
+                    wannaSeeId: selected,
+                    range: range
+                })
+            });
+        } catch (e) {
+            console.error("Une erreur est survenue lors de l'envoie des filtres :", e);
+        }
+    }
 
 
     return (
@@ -66,7 +83,10 @@ function PreferencesCard({setShowPreferences, selected, setSelected, range, setR
                         </div>
                         <DoubleSlider minVal={minAge} setMinVal={setMinAge} maxVal={maxAge} setMaxVal={setMaxAge} />
                     </article>
-                    <button className="w-full bg-my-red font-nunito-regular rounded-[15px] text-white p-4 mt-4 mb-7" onClick={() => setShowPreferences(false)}>
+                    <button className="w-full bg-my-red font-nunito-regular rounded-[15px] text-white p-4 mt-4 mb-7" onClick={() => {
+                        SendChangeFilter()
+                        setShowPreferences(false)
+                    }}>
                         Fermer
                     </button>
                 </section>

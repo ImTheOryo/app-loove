@@ -3,10 +3,14 @@ import Modal from "react-modal";
 import {FiX} from "react-icons/fi";
 import {useEffect, useState} from "react";
 import {API_BASE_URL} from "../../constants/Constants";
+import {isNumericalString} from "motion";
+import {toast} from "react-toastify";
+import reportList from "../../pages/ReportList/ReportList";
 
 function ReportModal({showModal, setShowModal, userID}) {
     const [reason, setReason] = useState([]);
-
+    const [message, setMessage] = useState("");
+    const [reportReason, setReportReason] = useState();
     const GetReportReasons = async () =>{
         const res = await fetch(`${API_BASE_URL}/reason`,{
             method: "GET",
@@ -15,6 +19,30 @@ function ReportModal({showModal, setShowModal, userID}) {
         if (res.status === 200){
             const data = await res.json();
             setReason(data.body);
+        }
+    }
+
+    const SendReport = async () => {
+        if (isNumericalString(reportReason) && message.trim().length !== 0){
+            const res = await fetch(`${API_BASE_URL}/report/${localStorage.getItem('id')}/${userID}`,{
+                method: "POST",
+                headers: {Token: localStorage.getItem('token')},
+                body: JSON.stringify({
+                    reason_id: reportReason,
+                    message: message,
+                })
+            });
+
+            if (res.status === 201){
+                toast.success("Utilisateur signalé avec success");
+            } else if (res.status === 400){
+                toast.error("Vous avez deja signaler cette personne");
+            }
+
+            setShowModal(!showModal);
+        } else {
+
+            toast.error("Veuillez nous donner des informations supplémentaire");
         }
     }
 
@@ -41,24 +69,37 @@ function ReportModal({showModal, setShowModal, userID}) {
                 <select
                     name="report-reason"
                     id="report-reason"
-                    className="w-[100%] bg-red-100 text-red-700 px-4 py-2 rounded-lg"
+                    className="w-full bg-red-100 text-red-700 px-4 py-2 rounded-lg"
+                    onChange={(e) => setReportReason(e.target.value)}
                 >
                     <option value="">Veuillez choisir une option</option>
-                    {
-                        isNaN(reason) && (
-                            reason.map((reportReason, index) => (
-                                <option value={index + 1}>{reportReason}</option>
-                            ))
-                        )
+                    {Array.isArray(reason) &&
+                        reason.map((reportReason, index) => (
+                            <option key={index} value={index + 1}>
+                                {reportReason}
+                            </option>
+                        ))
                     }
                 </select>
+
             </div>
             <div className="mt-6 space-y-3">
                 <p>
                     Message :
                 </p>
-                <textarea className="bg-gray-100 w-[100%] h-28 rounded text-left"/>
-                <button className="text-center bg-red-100 text-red-700 w-[100%] rounded-2xl py-1 font-nunito-bold font-bold">
+                <textarea
+                    className="bg-gray-100 w-[100%] h-28 rounded text-left"
+                    onChange={(e)=>{
+                        setMessage(e.target.value);
+                    }}
+                    value={message}
+                />
+                <button
+                    className="text-center bg-red-100 text-red-700 w-[100%] rounded-2xl py-1 font-nunito-bold font-bold"
+                    onClick={()=>{
+                        SendReport()
+                    }}
+                >
                     Signaler
                 </button>
             </div>

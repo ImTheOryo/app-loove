@@ -14,6 +14,10 @@ function ProfileSummary() {
     const [image, setImage] = useState("");
     const navigate = useNavigate();
 
+
+    const GotoPremium = () => {
+        navigate("/premium")
+    }
     const handleClick = () => {
         navigate(`/profile/settings`)
     };
@@ -83,7 +87,12 @@ function ProfileSummary() {
                     </div>
                 </section>
 
-                <button className="button-premium font-poppins-bold">
+                <button
+                    className="button-premium font-poppins-bold"
+                    onClick={() => {
+                        GotoPremium()
+                    }}
+                >
                     Passez à Harmony Premium
                 </button>
             </div>
