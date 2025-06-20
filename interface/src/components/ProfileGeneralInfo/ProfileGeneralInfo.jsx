@@ -7,11 +7,13 @@ import { FaTransgenderAlt } from "react-icons/fa";
 import { GiMagnifyingGlass } from "react-icons/gi";
 import { TbFileCv } from "react-icons/tb";
 import ProfileLookingFor from "../ProfileLookingFor/ProfileLookingFor";
+import ProfileCurrently from "../ProfileCurrently/ProfileCurrently";
 
 
 function ProfileGeneralInfo ({setChangeInfos, changeInfos}) {
     const [showGender, setShowGender] = useState(false);
     const [showRelation, setShowRelation] = useState(false)
+    const [showCurrently, setShowCurrently] = useState(false);
 
     return(
         <div className="profile-settings-div">
@@ -23,9 +25,12 @@ function ProfileGeneralInfo ({setChangeInfos, changeInfos}) {
             { showRelation && (
                 <ProfileLookingFor showRelation={showRelation} setShowRelation={setShowRelation}/>
             )}
+            { showCurrently && (
+                <ProfileCurrently setShowCurrently={setShowCurrently} showCurrently={showCurrently}/>
+            )}
 
 
-            { !showGender && !showRelation && (
+            { !showGender && !showRelation && !showCurrently && (
                 <>
                     <button className="profile-btn-close" onClick={() => setChangeInfos(!changeInfos)}>
                         <HiMiniXMark className="text-l"/>
@@ -51,7 +56,10 @@ function ProfileGeneralInfo ({setChangeInfos, changeInfos}) {
                             Ce que je recheche
                             <IoIosArrowForward className="text-3xl text-gray-300 ml-auto"/>
                         </article>
-                        <article className="setting-article">
+                        <article
+                            className="setting-article"
+                            onClick={() => {setShowCurrently(!showCurrently)}}
+                        >
                             <TbFileCv className="text-2xl mr-3"/>
                             Je suis actuellement
                             <IoIosArrowForward className="text-3xl text-gray-300 ml-auto"/>
