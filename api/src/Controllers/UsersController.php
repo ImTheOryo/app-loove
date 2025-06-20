@@ -42,4 +42,15 @@ class UsersController extends BaseController {
 
     }
 
+    public function reset_password(): void {
+        try {
+            $raw = file_get_contents('php://input');
+            $obj = json_decode($raw);
+            $email = $obj->email;
+            $this->repository->reset_password($email);
+        }catch(Exception $e){
+            response_json(400, $e->getMessage());
+        }
+    }
+
 }

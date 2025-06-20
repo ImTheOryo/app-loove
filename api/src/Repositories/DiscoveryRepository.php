@@ -59,6 +59,7 @@ class DiscoveryRepository extends BaseRepository{
                      LEFT JOIN likes l1 ON u.id = l1.user_id_2 AND l1.user_id_1 = :user_id
                      LEFT JOIN likes l2 ON u.id = l2.user_id_1 AND l2.user_id_2 = :user_id
             WHERE u.id != :user_id
+              AND u.status = 2
               AND u.age BETWEEN :min_age AND :max_age
               AND (l1.id IS NULL OR l1.is_match = 0)
               AND (l2.id IS NULL OR l2.is_match = 0)

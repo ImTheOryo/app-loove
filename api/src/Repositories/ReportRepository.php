@@ -2,11 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Models\Admin;
 use App\Models\Report;
 use App\Models\ReportManagement;
 
 class ReportRepository extends BaseRepository {
-    public function get_report_reason () {
+    public function get_report_reason (): void {
         $reasons = [];
         $res = $this
             ->query("SELECT reason FROM report_reason")
@@ -68,16 +69,70 @@ class ReportRepository extends BaseRepository {
     }
 
     public function get_report(int $report_id): void {
-
+        $result = [];
+        $admins= [];
         $report = $this
             ->query("SELECT id, user_id_reported, reason_id, message, status  FROM report WHERE id = :report_id")
             ->fetch(["report_id" => $report_id])
         ;
 
-        $result[] = new ReportManagement($report);
+        $admin = $this
+            ->query("SELECT admin_id FROM report_admin WHERE report_id = :report_id")
+            ->fetchAll(["report_id" => $report_id])
+        ;
 
+        foreach ($admin as $user) {
+            $res = $this
+                ->query("SELECT a.id, a.first_name, a.last_name, a.image_name, ar.role FROM admin AS a INNER JOIN admin_role AS ar WHERE a.id = :id AND a.id_role = ar.id")
+                ->fetch(["id" => $user['admin_id']])
+            ;
+            $admins[] = new Admin($res);
+        };
+        $result[] = new ReportManagement($report);
+        $result[] = $admins;
         response_json(200, $result);
 
+    }
+
+    public function add_admin(int $report_id, int $admin_id): void {
+        $this
+            ->query("INSERT INTO report_admin (report_id, admin_id) VALUES (:report_id, :admin_id)")
+            ->execute(["report_id" => $report_id, "admin_id" => $admin_id])
+        ;
+
+        $count = $this
+            ->query("SELECT COUNT(*) AS as_admin FROM report_admin WHERE report_id = :report_id")
+            ->fetch(["report_id" => $report_id])
+        ;
+
+        if ($count['as_admin'] > 0) {
+            $this
+                ->query("UPDATE report SET status = 2 WHERE id = :report_id")
+                ->execute(["report_id" => $report_id])
+            ;
+        }
+
+        response_json(201);
+    }
+
+    public function delete_admin(int $report_id, int $admin_id): void {
+        $this
+            ->query("DELETE FROM report_admin WHERE report_id = :report_id AND admin_id = :admin_id")
+            ->execute(["report_id" => $report_id, "admin_id" => $admin_id])
+        ;
+
+        $count = $this
+            ->query("SELECT COUNT(*) AS as_admin FROM report_admin WHERE report_id = :report_id")
+            ->fetch(["report_id" => $report_id])
+        ;
+
+        if ($count['as_admin'] === 0) {
+            $this
+                ->query("UPDATE report SET status = 1 WHERE id = :report_id")
+                ->execute(["report_id" => $report_id])
+            ;
+        }
+        response_json(200);
     }
 
 }

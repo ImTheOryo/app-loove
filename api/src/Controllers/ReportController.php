@@ -30,4 +30,12 @@ class ReportController extends BaseController {
         $this->repository->get_report($report_id);
     }
 
+    public function add_admin (int $report_id, int $admin_id): void {
+        $this->repository->add_admin($report_id, $admin_id);
+    }
+
+    public function delete_admin (int $report_id, int $admin_id): void {
+        $this->repository->delete_admin($report_id, $admin_id);
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\UserList;
 use App\Services\JwtService;
+use App\Services\MailService;
 use DateTime;
 
 class UserRepository extends BaseRepository {
@@ -73,6 +74,30 @@ class UserRepository extends BaseRepository {
             ->execute(['latitude' => $latitude, 'longitude' => $longitude, 'id' => $id])
         ;
         response_json(200);
+    }
+
+    public function reset_password($email): void {
+
+
+        if (
+            $this
+                ->query("SELECT COUNT(*) FROM user WHERE mail= :mail")
+                ->fetch(['mail' => $email]) > 0
+        ) {
+            $mail_service = new MailService();
+            $code = uniqid();
+            $url = $_ENV["DOMAIN_URL"] . $code;
+
+            $this
+                ->query("UPDATE user SET reset_code = :reset_code WHERE mail= :mail")
+                ->execute(['reset_code' => $code, 'mail' => $email])
+            ;
+
+            $mail_service->send_to($email);
+            $mail_service->set_subject("Réinitialisation de mot de passe");
+            $mail_service->set_HTML_body_with_code("/../../templates/ResetPasswordMail.php", ['reset_password' => "$url"]);
+            $mail_service->send_mail();
+        }
     }
 
 }
