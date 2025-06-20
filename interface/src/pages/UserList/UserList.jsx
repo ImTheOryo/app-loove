@@ -73,7 +73,7 @@ function UserList() {
                                     <td className="email-link">{user.mail}</td>
                                     <td>{user.ddn}</td>
                                     <td>{user.subscription === 0 ? "Free" : "Premium"}</td>
-                                    <td>{user.city}</td>
+                                    <td>{user.status}</td>
                                     <td className="menu-icon">⋮</td>
                                 </tr>
                             ))}

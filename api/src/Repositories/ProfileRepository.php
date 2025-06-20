@@ -266,4 +266,21 @@ class ProfileRepository extends BaseRepository {
         response_json(200);
     }
 
+    public function get_current (int $user_id): void {
+        $res = $this
+            ->query("SELECT current FROM user WHERE id = :user_id")
+            ->fetch(["user_id" => $user_id])
+        ;
+
+        response_json(200, $res);
+    }
+
+    public function update_current (int $user_id, string $current): void {
+        $this ->
+            query("UPDATE user SET current = :current WHERE id = :user_id")
+            ->execute(["current" => $current, "user_id" => $user_id])
+        ;
+
+        response_json(200);
+    }
 }

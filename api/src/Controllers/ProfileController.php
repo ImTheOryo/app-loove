@@ -116,4 +116,15 @@ class ProfileController extends BaseController {
         }
         $this->repository->upload_image($imageArray, $user_id);
     }
+
+    public function get_current (int $user_id): void {
+        $this->repository->get_current($user_id);
+    }
+
+    public function update_current (int $user_id): void {
+        $raw = file_get_contents("php://input");
+        $data = json_decode($raw);
+        $current = $data->current;
+        $this->repository->update_current($user_id, $current);
+    }
 }
