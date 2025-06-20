@@ -22,6 +22,7 @@ function Signup() {
     const [stepRelation, setStepRelation] = useState(false);
     const [stepImages, setStepImages] = useState(false);
     const [stepBio, setStepBio] = useState(false);
+    const [stepMusic, setStepMusic] = useState(false);
 
     return (
         <div className="font-nunito-regular">

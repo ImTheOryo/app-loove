@@ -4,22 +4,27 @@ namespace App\Repositories;
 
 use App\Models\UserList;
 use App\Services\JwtService;
+use App\Services\MailService;
+use DateTime;
 
 class UserRepository extends BaseRepository {
 
-    public function log_in(string $email, string $password): void
+    public function log_in($email, $password): void
     {
+        $subscription_repo = new SubscriptionRepository();
         $admin = false;
         if (str_contains($email, $_ENV['DOMAIN_ADMIN_MAIL'])) {
             $admin = true;
 
             $result = $this
                 ->query("SELECT * FROM admin WHERE mail= :mail")
-                ->fetch(['mail' => $email]);
+                ->fetch(['mail' => $email])
+            ;
         } else {
             $result = $this
                 ->query("SELECT * FROM user WHERE mail= :mail")
-                ->fetch(['mail' => $email]);
+                ->fetch(['mail' => $email])
+            ;
         }
 
         if (empty($result)) {
@@ -32,7 +37,8 @@ class UserRepository extends BaseRepository {
 //                    session_start();
                     response_json(200, [['status' => 'admin'], ['id' => $result['id']]], $token);
                 } else {
-                    $token = $jwt->generate(['status' => $_ENV['JWT_USER_KEY'], 'subscription' => $result["status"]]);
+                    $subscription = $subscription_repo->check_subscription($result['id']);
+                    $token = $jwt->generate(['status' => $_ENV['JWT_USER_KEY'], 'subscription' => $subscription]);
 //                    session_start();
                     response_json(200, [['status' => 'user'], ['id' => $result['id']], ['subscription' => $result['status']]], $token);
                 }
@@ -45,7 +51,7 @@ class UserRepository extends BaseRepository {
         $table = [];
 
         $result = $this
-            ->query("SELECT id, first_name, mail, birth_date, status  FROM user")
+            ->query("SELECT id, first_name, mail, birth_date, premium FROM user")
             ->fetchAll();
 
         if (empty($result)) {
@@ -59,6 +65,38 @@ class UserRepository extends BaseRepository {
            }
 
            response_json(200, $table);
+        }
+    }
+
+    public function set_localisation($id, $latitude, $longitude): void {
+        $this
+            ->query("UPDATE user set latitude= :latitude, longitude= :longitude where id= :id")
+            ->execute(['latitude' => $latitude, 'longitude' => $longitude, 'id' => $id])
+        ;
+        response_json(200);
+    }
+
+    public function reset_password($email): void {
+
+
+        if (
+            $this
+                ->query("SELECT COUNT(*) FROM user WHERE mail= :mail")
+                ->fetch(['mail' => $email]) > 0
+        ) {
+            $mail_service = new MailService();
+            $code = uniqid();
+            $url = $_ENV["DOMAIN_URL"] . $code;
+
+            $this
+                ->query("UPDATE user SET reset_code = :reset_code WHERE mail= :mail")
+                ->execute(['reset_code' => $code, 'mail' => $email])
+            ;
+
+            $mail_service->send_to($email);
+            $mail_service->set_subject("Réinitialisation de mot de passe");
+            $mail_service->set_HTML_body_with_code("/../../templates/ResetPasswordMail.php", ['reset_password' => "$url"]);
+            $mail_service->send_mail();
         }
     }
 

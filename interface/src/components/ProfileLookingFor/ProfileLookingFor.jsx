@@ -43,7 +43,6 @@ function ProfileLookingFor ({ showRelation, setShowRelation}) {
     }
 
     const SaveRelation = async () => {
-        console.log(selectedIndex)
         await fetch(`${API_BASE_URL}/relation/${localStorage.getItem('id')}/${selectedIndex}`,{
             method: 'PATCH',
             headers: {Token: localStorage.getItem('token')}

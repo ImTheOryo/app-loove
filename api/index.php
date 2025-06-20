@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 use App\Controllers\AdminController;
 use App\Controllers\ProfileController;
 use App\Controllers\RegisterController;
+use App\Controllers\SubscriptionController;
 use App\Controllers\UsersController;
 use App\Controllers\DiscoveryController;
 use App\Controllers\ChatController;
@@ -38,10 +39,23 @@ $routeur = new Routeur();
 
 // Admin side [Admin]
 $routeur->addRoute(['GET'], "/users", UsersController::class, 'get_all_users', $_ENV['JWT_ADMIN_KEY']);
+
 $routeur->addRoute(['GET'], "/admin/{admin_id}", AdminController::class, 'get_admin', $_ENV['JWT_ADMIN_KEY']);
+
+$routeur->addRoute(['GET'], "/dashboard", AdminController::class, 'get_dashboard', $_ENV['JWT_ADMIN_KEY']);
+
+$routeur->addRoute(['GET'], "/reports", ReportController::class, 'get_all_reports', $_ENV['JWT_ADMIN_KEY']);
+$routeur->addRoute(['GET'], "/report/{report_id}", ReportController::class, 'get_report', $_ENV['JWT_ADMIN_KEY']);
+$routeur->addRoute(['GET'], "/admins/{report_id}", AdminController::class, 'get_admins_by_reports', $_ENV['JWT_ADMIN_KEY']);
+$routeur->addRoute(['GET'], "/report/chat/{report_id}", AdminController::class, 'get_chat_by_report', $_ENV['JWT_ADMIN_KEY']);
+$routeur->addRoute(['POST'], "/report/{report_id}/{admin_id}", ReportController::class, 'add_admin', $_ENV['JWT_ADMIN_KEY']);
+$routeur->addRoute(['DELETE'], "/report/{report_id}/{admin_id}", ReportController::class, 'delete_admin', $_ENV['JWT_ADMIN_KEY']);
 
 // Login [All]
 $routeur->addRoute(['POST'], "/login", UsersController::class, 'login');
+
+// Reset Password [ALl]
+$routeur->addRoute(['POST'], "/reset",  UsersController::class, 'reset_password');
 
 // Register [All]
 $routeur->addRoute(['POST'], "/register/mail", RegisterController::class, 'register_mail');
@@ -56,12 +70,19 @@ $routeur->addRoute(['POST'], "/register/biography", RegisterController::class, '
 
 // Discovery [User]
 $routeur->addRoute(['GET'], "/discovery/{user_id}", DiscoveryController::class, 'get_discovery', $_ENV['JWT_USER_KEY']);
-$routeur->addRoute(['GET'], "/filter/{user_id}", DiscoveryController::class, 'get_filter', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['POST'], "/like/{user_id}/{user_like}", DiscoveryController::class, 'like_user',  $_ENV['JWT_USER_KEY']);
-$routeur->addRoute(['POST'], "/skip/{user_id}/{user_skip}", UsersController::class, 'skip_user',   $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['POST'], "/skip/{user_id}/{user_skip}", DiscoveryController::class, 'skip_user',   $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['POST'], "/message/{user_id}/{user_send_to}", DiscoveryController::class, 'message_user',  $_ENV['JWT_USER_KEY']);
+
+// Filter [User]
+$routeur->addRoute(['GET'], "/filter/{user_id}", DiscoveryController::class, 'get_filter',  $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['PATCH'], "/filter/{user_id}", DiscoveryController::class, 'update_filter',  $_ENV['JWT_USER_KEY']);
 
 // See Who Like [User]
 $routeur->addRoute(['GET'], "/likes/{user_id}", DiscoveryController::class, 'get_likes', $_ENV['JWT_USER_KEY']);
+
+// Localisation [User]
+$routeur->addRoute(["POST"], "/localisation", UsersController::class, 'set_localisation', $_ENV['JWT_USER_KEY']);
 
 // Chat [User]
 $routeur->addRoute(['GET'], "/match/{user_id}",ChatController::class,'get_match', $_ENV['JWT_USER_KEY']);
@@ -72,6 +93,7 @@ $routeur->addRoute(['POST'], "/chat/{chat_room_id}/{user_sender}", ChatControlle
 
 // Report [User]
 $routeur->addRoute(['GET'], "/reason", ReportController::class, 'get_report_reason', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['POST'], "/report/{user_reporter_id}/{user_reported_id}", ReportController::class, 'report_user', $_ENV['JWT_USER_KEY']);
 
 // Profile [User]
 $routeur->addRoute(['GET'], "/profile/{user_id}", ProfileController::class, 'get_user', $_ENV['JWT_USER_KEY']);
@@ -98,5 +120,13 @@ $routeur->addRoute(['GET'], "/gender/{user_id}", ProfileController::class, 'get_
 $routeur->addRoute(['PATCH'], "/gender/{user_id}/{gender_id}", ProfileController::class, 'update_gender', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['GET'], "/relation/{user_id}", ProfileController::class, 'get_relation', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['PATCH'], "/relation/{user_id}/{relation_id}",  ProfileController::class, 'update_relation', $_ENV['JWT_USER_KEY']);
+
+// Profile Images [User]
+$routeur->addRoute(['GET'], "/images/{user_id}", ProfileController::class, 'get_images', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['DELETE'], "/image/delete", ProfileController::class, 'delete_image', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['POST'], "/images/upload/{user_id}", ProfileController::class, 'upload_image', $_ENV['JWT_USER_KEY']);
+
+// Subscription [User]
+$routeur->addRoute(['POST'], "/subscription", SubscriptionController::class, 'subscribe_user', $_ENV['JWT_USER_KEY']);
 
 new Kernel($routeur);

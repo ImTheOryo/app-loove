@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Repositories\ProfileRepository;
 use App\Repositories\UserRepository;
+use Exception;
 
 class ProfileController extends BaseController {
     private $repository;
@@ -80,5 +81,39 @@ class ProfileController extends BaseController {
 
     public function update_relation (int $user_id, int $relation_id): void {
         $this->repository->update_relation($user_id, $relation_id);
+    }
+
+    public function get_images (int $user_id): void {
+        $this->repository->get_images($user_id);
+    }
+
+    public function delete_image (): void {
+        $data = json_decode(file_get_contents("php://input"), true);
+        if (!isset($data['image_name'])) {
+            response_json(400, "No image name provided");
+        }
+        $this->repository->delete_image($data['image_name']);
+    }
+
+    public function upload_image (int $user_id){
+        $index = 0;
+        $imageArray = [];
+        $primary_images = $_POST["primaryIndex"];
+        $images = $_FILES;
+        foreach ($images as $image) {
+            try {
+                $name = uniqid() . ".webp";
+                move_uploaded_file($image["tmp_name"], $_SERVER["DOCUMENT_ROOT"] . "/upload/" . $name );
+                $imageArray[] = [
+                    "name" => $name,
+                    "primary" => $primary_images == $index ? 1 : 0,
+                ];
+            }
+            catch (Exception $e) {
+                var_dump($e->getMessage());
+            }
+            $index++;
+        }
+        $this->repository->upload_image($imageArray, $user_id);
     }
 }

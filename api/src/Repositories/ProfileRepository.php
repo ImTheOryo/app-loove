@@ -20,7 +20,6 @@ class ProfileRepository extends BaseRepository {
         $result = [];
         $images = [];
         $hobbies = [];
-        $musics = [];
 
         $res_user_infos = $this
             ->query("SELECT u.first_name, u.age, u.current, u.search_type_id, u.biography FROM user AS u WHERE id = :id")
@@ -220,6 +219,48 @@ class ProfileRepository extends BaseRepository {
             ;
         } catch (\Exception $e) {
             $error = $e->getMessage();
+        }
+
+        response_json(200);
+    }
+
+    public function get_images(int $user_id): void {
+        $images = $this
+            ->query("SELECT image_name, image_primary FROM image WHERE user_id = :user_id")
+            ->fetchAll(["user_id" => $user_id])
+        ;
+
+        response_json(200, $images);
+    }
+
+    public function delete_image (string $image_name): void {
+        $this
+            ->query("DELETE FROM image WHERE image_name = :image_name")
+            ->execute(["image_name" => $image_name])
+        ;
+        response_json(200);
+    }
+
+    public function upload_image($images, $user_id): void {
+        $count = $this
+            ->query("SELECT COUNT(*) AS primary_count FROM image WHERE user_id = :user_id AND image_primary = 1")
+            ->fetch(["user_id" => $user_id])
+        ;
+
+        if ($count['primary_count'] > 0) {
+            foreach ($images as $image) {
+                $this
+                    ->query("INSERT INTO image (image_name, user_id, image_primary) VALUES (:image_name, :user_id, 0)")
+                    ->execute(['image_name' => $image['name'], 'user_id' => $user_id])
+                ;
+            }
+        } else {
+            foreach ($images as $image) {
+                $this
+                    ->query("INSERT INTO image (image_name, user_id, image_primary) VALUES (:image_name, :user_id, :image_primary)")
+                    ->execute(['image_name' => $image['name'], 'user_id' => $user_id, 'image_primary' => $image['primary']])
+                ;
+            }
         }
 
         response_json(200);

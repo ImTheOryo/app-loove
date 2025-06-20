@@ -79,7 +79,7 @@ class RegisterController extends BaseController {
         foreach ($images as $image) {
             try {
                 $name = uniqid() . ".webp";
-                move_uploaded_file($image["tmp_name"], $_SERVER["DOCUMENT_ROOT"] . "upload/" . $name );
+                move_uploaded_file($image["tmp_name"], $_SERVER["DOCUMENT_ROOT"] . "/upload/" . $name );
                 $imageArray[] = [
                     "name" => $name,
                     "primary" => $primary_images == $index ? 1 : 0,

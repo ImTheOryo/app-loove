@@ -5,5 +5,5 @@
 
 .LikeCard img {
     @apply w-full h-full bg-cover rounded-2xl;
-    filter: blur(10px);
+
 }

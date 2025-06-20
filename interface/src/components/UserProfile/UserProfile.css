@@ -6,14 +6,14 @@
 }
 
 #user-profile img {
-    @apply w-full h-full rounded-[20px] object-cover;
+    @apply w-full h-[450px] rounded-[20px] object-cover;
 }
 
 #user-profile div {
     @apply w-full fixed bottom-0 rounded-b-[15px];
     background: rgba(255, 255, 255, 0.15);
     box-shadow: 0 0 30px 40px rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(7.5px);
+    backdrop-filter: blur(25px);
 }
 
 #user-profile h2 {
@@ -25,5 +25,5 @@
 }
 
 #user-profile-expand {
-    @apply fixed bottom-5 right-5 border-2 border-white rounded-[10px] p-1;
+    @apply fixed bottom-10 right-5 border-2 border-white rounded-[10px] p-1;
 }

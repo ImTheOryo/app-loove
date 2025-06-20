@@ -13,7 +13,7 @@ class UserList {
         $this->name = $data["first_name"];
         $this->mail = $data["mail"];
         $this->ddn = $data["birth_date"];
-        $this->subscription = $data["status"];
+        $this->subscription = $data["premium"];
         $this->image = $image["image_name"];
     }
 }

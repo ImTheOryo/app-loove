@@ -1,14 +1,15 @@
 import "./UserList.css";
-import { PiMagnifyingGlass } from "react-icons/pi";
 import { API_BASE_URL } from "../../constants/Constants";
 import { useEffect, useState } from "react";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import ReactPaginate from 'react-paginate';
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 function UserList() {
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const usersPerPage = 8;
+    const [search, setSearch] = useState("");
 
     const getAllUsers = async () => {
         const res = await fetch(`${API_BASE_URL}/users`, {
@@ -30,20 +31,22 @@ function UserList() {
         setCurrentPage(selected);
     };
 
+    const filterUser = users.filter(user =>
+        user.name.toLowerCase().includes(search.toLowerCase()) ||
+        user.mail.toLowerCase().includes(search.toLowerCase()) ||
+        user.ddn.includes(search)   
+    )
+
     const offset = currentPage * usersPerPage;
-    const currentUsers = users.slice(offset, offset + usersPerPage);
+    const currentUsers = filterUser.slice(offset, offset + usersPerPage);
     const pageCount = Math.ceil(users.length / usersPerPage);
 
     return (
         <div className="user-list-container">
-            <div className="user-list-search-bar">
-                <PiMagnifyingGlass className="search-icon" />
-                <input
-                    type="text"
-                    placeholder="Recherchez par un ID, prénom, mail, ou autre"
-                    className="search-input"
-                />
-            </div>
+            <SearchBar
+                value={search}
+                changeValue={setSearch}
+            />
             {
                 isNaN(users) && (
                     <>

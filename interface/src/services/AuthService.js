@@ -1,5 +1,6 @@
 import {API_BASE_URL} from "../constants/Constants";
 
+
 export class AuthService {
 
     async login(form) {
@@ -21,5 +22,22 @@ export class AuthService {
         }
     }
 
+    isSubscribe = () => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            return false;
+        }
+        try {
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            const isExpired = payload.exp * 1000 < Date.now();
+            const isSubscribe = payload.subscription == 1;
+            return !isExpired && isSubscribe;
+
+        } catch {
+            return false;
+        }
+
+    };
 
 }

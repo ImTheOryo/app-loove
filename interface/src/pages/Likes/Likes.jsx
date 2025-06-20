@@ -1,13 +1,18 @@
 import "./Likes.css";
 import Navbar from "../../components/Navbar/Navbar";
-import {useEffect, useState} from "react";
-import {API_BASE_URL} from "../../constants/Constants";
+import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../constants/Constants";
 import LikeCard from "../../components/LikeCard/LikeCard";
+import UserProfileExtended from "../../components/UserProfileExtended/UserProfileExtended";
+import ActionButtons from "../../components/ActionButtons/ActionButtons";
+import ActionButtonPremium from "../../components/ActionButtonPremium/ActionButtonPremium";
 
-function Likes () {
+function Likes() {
     const [likes, setLikes] = useState([]);
-    const [items, setItems] = useState(false);
-    const likesArray = [];
+    const [showProfile, setShowProfile] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [userIDExtended, setUserIDExtended] = useState(1);
+
     const getLikes = async () => {
         try {
             const res = await fetch(`${API_BASE_URL}/likes/${localStorage.getItem('id')}`, {
@@ -15,49 +20,59 @@ function Likes () {
                 headers: { "Token": localStorage.getItem('token') },
             });
 
-            if (!res.ok) {
-                console.error("Error fetching Likes:", res.status);
-                return;
-            }
-
             if (res.status === 200) {
                 const data = await res.json();
-                const likesData = data.body;
-
-                likesData.map((like) => {
-                    likesArray.push(<LikeCard key={Math.random()} data={like} />)
-                })
-                setLikes(likesArray);
-                setItems(true);
+                setLikes(data.body);
             }
-
-
         } catch (error) {
-            console.error("Erreur lors de la récupération des Likes :",error);
+            console.error("Erreur lors de la récupération des Likes :", error);
+        } finally {
+            setLoading(false);
         }
-    }
-    useEffect(() => {
-        getLikes()
-    }, [items])
+    };
 
-    document.title = "Harmony | Likes"
+    useEffect(() => {
+        getLikes();
+    }, []);
+
+    document.title = "Harmony | Likes";
 
     return (
-        <div className="w-[80%] m-auto">
-            <div className="likes-Header">
-                <h3>
-                    Likes
-                </h3>
-                <p className="mb-7">
-                    Les personnes qui t'on likes
-                </p>
-            </div>
-            <section className="LikesContent">
-                {likes}
-            </section>
-            <Navbar/>
+        <div>
+            {showProfile && (
+                <div>
+                    <UserProfileExtended userID={userIDExtended} setShowExtendProfile={setShowProfile} report={false}/>
+                    <ActionButtonPremium currentUser={userIDExtended}/>
+                </div>
+            )}
+            {!showProfile && (
+                <div className="w-[80%] m-auto">
+                    <div className="likes-Header">
+                        <h3>Likes</h3>
+                        <p className="mb-7">Les personnes qui t'ont liké</p>
+                    </div>
+                    <section className="LikesContent">
+                        {loading ? (
+                            <p>Chargement en cours...</p>
+                        ) : likes.length > 0 ? (
+                            likes.map((like) => (
+                                <LikeCard
+                                    key={like.id}
+                                    data={like}
+                                    setShowProfile={setShowProfile}
+                                    showProfile={showProfile}
+                                    setUserId={setUserIDExtended}
+                                />
+                            ))
+                        ) : (
+                            <p>Aucun like pour le moment.</p>
+                        )}
+                    </section>
+                    <Navbar />
+                </div>
+            )}
         </div>
-    )
+    );
 }
 
-export default Likes
+export default Likes;
