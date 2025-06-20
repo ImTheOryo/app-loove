@@ -51,7 +51,7 @@ class UserRepository extends BaseRepository {
         $table = [];
 
         $result = $this
-            ->query("SELECT id, first_name, mail, birth_date, premium FROM user")
+            ->query("SELECT user.id, user.first_name, user.mail, user.birth_date, user.premium, us.status FROM user INNER JOIN user_status AS us ON us.id = user.status")
             ->fetchAll();
 
         if (empty($result)) {

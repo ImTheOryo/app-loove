@@ -120,6 +120,8 @@ $routeur->addRoute(['GET'], "/gender/{user_id}", ProfileController::class, 'get_
 $routeur->addRoute(['PATCH'], "/gender/{user_id}/{gender_id}", ProfileController::class, 'update_gender', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['GET'], "/relation/{user_id}", ProfileController::class, 'get_relation', $_ENV['JWT_USER_KEY']);
 $routeur->addRoute(['PATCH'], "/relation/{user_id}/{relation_id}",  ProfileController::class, 'update_relation', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['GET'], "/current/{user_id}", ProfileController::class, 'get_current', $_ENV['JWT_USER_KEY']);
+$routeur->addRoute(['PATCH'], "/current/{user_id}", ProfileController::class, 'update_current', $_ENV['JWT_USER_KEY']);
 
 // Profile Images [User]
 $routeur->addRoute(['GET'], "/images/{user_id}", ProfileController::class, 'get_images', $_ENV['JWT_USER_KEY']);
