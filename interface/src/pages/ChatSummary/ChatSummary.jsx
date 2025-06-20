@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import ChatSummaryCard from "../../components/ChatSummaryCard/ChatSummaryCard";
 import {useEffect, useState} from "react";
 import {API_BASE_URL} from "../../constants/Constants";
+import Spinner from "../../components/Spinner/Spinner";
 
 function ChatSummary() {
     const [userData, setUserData] = useState([]);
@@ -39,21 +40,29 @@ function ChatSummary() {
         listItem.push(userData.map(user => <ChatSummaryCard key={Math.random()} userData={user} />));
     }
     return (
-        <div className="flex">
-            <div id="chat-summary-div">
-                <h3>
-                    Conversations
-                </h3>
-                <h2 className="mb-7">
-                    Messages
-                </h2>
-                <section id="chat-summary-messages">
-                    {listItem}
-                </section>
-            </div>
+        <div>
+            {!isNaN(listItem) && (
+                <Spinner/>
+            )}
+            {isNaN(listItem) && (
+                <div className="flex">
+                    <div id="chat-summary-div">
+                        <h3>
+                            Conversations
+                        </h3>
+                        <h2 className="mb-7">
+                            Messages
+                        </h2>
+                        <section id="chat-summary-messages">
+                            {listItem}
+                        </section>
+                    </div>
 
-            <Navbar/>
+                    <Navbar/>
+                </div>
+            )}
         </div>
+
     );
 }
 
