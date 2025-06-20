@@ -4,12 +4,17 @@ import {useNavigate} from "react-router";
 import {use, useEffect, useState} from "react";
 import {motion} from "motion/react";
 import {API_BASE_URL} from "../../constants/Constants";
+import * as PusherPushNotifications from "@pusher/push-notifications-web";
 
 
 function AdminCard() {
     const navigate = useNavigate();
     const [displayLogout, setDisplayLogout] = useState(false);
     const [admin, setAdmin] = useState([]);
+    const beamsClient = new PusherPushNotifications.Client({
+        instanceId: "d3357f00-ef05-4ba6-afea-f741e8d1814e",
+    });
+
     const getAdminData = async () => {
         const res = await fetch(`${API_BASE_URL}/admin/${localStorage.getItem('id')}`,{
             method: "GET",
@@ -26,7 +31,8 @@ function AdminCard() {
         getAdminData()
     }, []);
 
-    const logoutOnClick = () => {
+    const logoutOnClick = async () => {
+        await beamsClient.clearAllState();
         localStorage.clear();
         navigate("/");
     }

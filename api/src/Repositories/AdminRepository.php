@@ -94,8 +94,8 @@ class AdminRepository extends BaseRepository {
         ;
 
         $messages = $this
-            ->query("SELECT id_sender, message, time, seen FROM messages WHERE chat_room_id = :chat_room_id AND id_sender = :id_sender")
-            ->fetchAll(["chat_room_id" => $chat_id["chat_room_id"], "id_sender" => $users["user_id_reported"]])
+            ->query("SELECT id_sender, message, time, seen FROM messages WHERE chat_room_id = :chat_room_id")
+            ->fetchAll(["chat_room_id" => $chat_id["chat_room_id"]  ])
         ;
         if (isset($messages[0])){
             foreach ($messages as $message) {
@@ -105,8 +105,6 @@ class AdminRepository extends BaseRepository {
         } else {
             response_json(204);
         }
-
-        var_dump($messages);
 
     }
 }

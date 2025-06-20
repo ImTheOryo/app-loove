@@ -48,7 +48,7 @@ const Dashboard = () => {
 
 
     return (
-        <div className="min-h-screen bg-[#FAFAFA] p-6">
+        <div className="min-h-screen p-6 bg-[#FAFAFA]">
             <div>
                 <section className="grid grid-cols-3 gap-6">
                     <article className="bg-white shadow-md rounded-2xl p-6 flex items-center space-x-4">

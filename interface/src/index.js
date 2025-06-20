@@ -22,9 +22,9 @@ import Signup from "./pages/Signup/Signup";
 import Settings from "./pages/Settings/Settings";
 import ReportList from "./pages/ReportList/ReportList";
 import ManageReport from "./pages/ManageReport/ManageReport";
-import Premium from "./pages/Premium/Premium";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import PremiumSubscription from "./components/PremiumSubscription/PremiumSubscription";
 
 
 Modal.setAppElement('#root');
@@ -51,7 +51,6 @@ const router = createBrowserRouter([
             {path: "/administrateur/utilisateurs", element: <UserList/>},
             {path: "/administrateur/moderation", element: <ReportList/>},
             {path: "/administrateur/moderation/:report_id", element: <ManageReport/>},
-            {path: "/administrateur/monetisation", element: "<h1>monetisation</h1>"},
         ],
     },
     {
@@ -91,7 +90,7 @@ const router = createBrowserRouter([
         ]
     },
     {
-        element: <PrivateRoute allowedRoles={["user"]} children={<Premium/>}></PrivateRoute>,
+        element: <PrivateRoute allowedRoles={["user"]} children={<PremiumSubscription/>}></PrivateRoute>,
         children: [
             {path: "/premium", element: ""}
         ]

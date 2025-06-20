@@ -161,7 +161,8 @@ function ProfileImages ({ setChangeImage, changeImage}) {
                                 <input
                                     id={`photo-input-${index}`}
                                     type="file"
-                                    accept="image/jpeg, image/png, image/jpg"
+                                    accept="image/jpeg, image/png, image/jpg, image/webp"
+                                    capture="environment"
                                     className="hidden"
                                     onChange={(e) => handleImageChange(e, index)}
                                 />

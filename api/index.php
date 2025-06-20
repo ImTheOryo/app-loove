@@ -46,6 +46,8 @@ $routeur->addRoute(['GET'], "/dashboard", AdminController::class, 'get_dashboard
 
 $routeur->addRoute(['GET'], "/reports", ReportController::class, 'get_all_reports', $_ENV['JWT_ADMIN_KEY']);
 $routeur->addRoute(['GET'], "/report/{report_id}", ReportController::class, 'get_report', $_ENV['JWT_ADMIN_KEY']);
+$routeur->addRoute(['PATCH'], "/report/{report_id}", ReportController::class, 'close_report', $_ENV['JWT_ADMIN_KEY']);
+$routeur->addRoute(['PATCH'], "/report/{action}/{user_id}", ReportController::class, 'action_user', $_ENV['JWT_ADMIN_KEY']);
 $routeur->addRoute(['GET'], "/admins/{report_id}", AdminController::class, 'get_admins_by_reports', $_ENV['JWT_ADMIN_KEY']);
 $routeur->addRoute(['GET'], "/report/chat/{report_id}", AdminController::class, 'get_chat_by_report', $_ENV['JWT_ADMIN_KEY']);
 $routeur->addRoute(['POST'], "/report/{report_id}/{admin_id}", ReportController::class, 'add_admin', $_ENV['JWT_ADMIN_KEY']);
@@ -129,6 +131,7 @@ $routeur->addRoute(['DELETE'], "/image/delete", ProfileController::class, 'delet
 $routeur->addRoute(['POST'], "/images/upload/{user_id}", ProfileController::class, 'upload_image', $_ENV['JWT_USER_KEY']);
 
 // Subscription [User]
+$routeur->addRoute(['GET'], "/subscription", SubscriptionController::class, 'get_subscription');
 $routeur->addRoute(['POST'], "/subscription", SubscriptionController::class, 'subscribe_user', $_ENV['JWT_USER_KEY']);
 
 new Kernel($routeur);

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Subscription;
 use App\Services\JwtService;
 use DateInterval;
 use DateTime;
@@ -99,5 +100,15 @@ class SubscriptionRepository extends BaseRepository {
         return false;
     }
 
-
+    public function get_subscription(): void {
+        $result = [];
+        $subscriptions = $this
+            ->query('SELECT * FROM subscription')
+            ->fetchAll()
+        ;
+        foreach ($subscriptions as $subscription) {
+            $result[$subscription["time"]."-months"] = new Subscription($subscription);
+        }
+        response_json(200, $result);
+    }
 }
