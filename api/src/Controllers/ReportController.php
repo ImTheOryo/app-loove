@@ -38,4 +38,12 @@ class ReportController extends BaseController {
         $this->repository->delete_admin($report_id, $admin_id);
     }
 
+    public function close_report (int $report_id): void {
+        $this->repository->close_report($report_id);
+    }
+
+    public function action_user (string $action, int $user_id): void {
+        $this->repository->action_user($action, $user_id);
+    }
+
 }

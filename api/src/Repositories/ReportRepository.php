@@ -135,4 +135,23 @@ class ReportRepository extends BaseRepository {
         response_json(200);
     }
 
+    public function close_report (int $report_id): void {
+        $this
+            ->query("UPDATE report SET status = 3 WHERE id = :report_id")
+            ->execute(["report_id" => $report_id])
+        ;
+
+        response_json(200);
+    }
+
+    public function action_user (string $action, int $user_id): void {
+        $action = $action == "ban" ? 4 : 3;
+        $this
+            ->query("UPDATE user SET status = :action WHERE id = :report_id")
+            ->execute(["action" => $action, "report_id" => $user_id])
+        ;
+
+        response_json(200);
+    }
+
 }
