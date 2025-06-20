@@ -31,8 +31,6 @@ function UserProfile({ showExtendProfile, setShowExtendProfile, userCount, setUs
         const sortedImages = userInfo['image'];
 
         setCurrentUser(userInfo['infos']['id']);
-        console.log(userInfo['infos']['id'])
-
         return (
             <div>
                 <AnimatePresence mode="wait">

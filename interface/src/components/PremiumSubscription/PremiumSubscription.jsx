@@ -115,7 +115,7 @@ const PremiumSubscription = () => {
             </div>
 
             <div className="m-auto">
-                {isReady && (
+
                     <PayPalScriptProvider
                         options={{
                             "client-id": "AWQZPo90W58FfDmDe2j-BQdXi31OvwOcbBKriaEjuuJaHB48ofk_5rbwgvUvEXs_ISjV6B8b8TJ9UxH6",
@@ -139,7 +139,7 @@ const PremiumSubscription = () => {
                             onApprove={SendSubscription}
                         />
                     </PayPalScriptProvider>
-                )}
+
             </div>
 
             <button

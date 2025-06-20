@@ -79,12 +79,6 @@ function ProfileSummary() {
                         <div className="flex justify-center"><HiXMark className="text-red-400 w-6 h-6" /></div>
                         <div className="flex justify-center"><IoCheckmarkOutline className="text-green-500 w-6 h-6" /></div>
                     </div>
-
-                    <div className="avantage-section">
-                        <div>Filtre avancé</div>
-                        <div className="flex justify-center"><HiXMark className="text-red-400 w-6 h-6" /></div>
-                        <div className="flex justify-center"><IoCheckmarkOutline className="text-green-500 w-6 h-6" /></div>
-                    </div>
                 </section>
 
                 <button

@@ -8,7 +8,7 @@ import QuestionMusicCard from "../QuestionMusicCard/QuestionMusicCard";
 import { PiImagesDuotone } from "react-icons/pi";
 import { useEffect, useState } from "react";
 
-function AdminReportedProfile({ userID }) {
+function AdminReportedProfile({ userID, setImage }) {
     const [userInfo, setUserInfo] = useState(null);
 
     const getUserInfos = async () => {
@@ -20,6 +20,7 @@ function AdminReportedProfile({ userID }) {
 
             const data = await res.json();
             setUserInfo(data.body);
+            setImage(data.body.image_primary);
         } catch (err) {
             console.error("Erreur lors du fetch : ", err);
         }

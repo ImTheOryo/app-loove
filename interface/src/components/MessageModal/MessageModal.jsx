@@ -8,8 +8,6 @@ import {API_BASE_URL} from "../../constants/Constants";
 function MessageModal ({isOpen, setIsOpen, currentUser, userCount, setUserCount}) {
     const [message, setMessage] = useState("");
 
-    console.log(currentUser)
-
     const handleSubmit = async () => {
         if (message.trim().length > 0) {
             await fetch(`${API_BASE_URL}/message/${localStorage.getItem('id')}/${currentUser}`,{
@@ -45,12 +43,12 @@ function MessageModal ({isOpen, setIsOpen, currentUser, userCount, setUserCount}
                 Veuillez écrire votre message ci-dessous :
             </p>
             <div className="mt-6 space-y-3">
-        <textarea
-            className="bg-gray-100 w-full h-28 rounded-lg p-3 text-gray-800"
-            onChange={(e) => setMessage(e.target.value)}
-            value={message}
-            placeholder="Écrivez votre message ici..."
-        />
+                <textarea
+                    className="bg-gray-100 w-full h-28 rounded-lg p-3 text-gray-800"
+                    onChange={(e) => setMessage(e.target.value)}
+                    value={message}
+                    placeholder="Écrivez votre message ici..."
+                />
                 <button
                     className="text-center bg-red-600 text-white w-full rounded-lg py-2 font-bold hover:bg-red-700"
                     onClick={() => {

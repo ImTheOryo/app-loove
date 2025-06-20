@@ -1,6 +1,6 @@
 import {PiMagnifyingGlass} from "react-icons/pi";
 
-function SearchBar () {
+function SearchBar ({changeValue, value}) {
     return (
         <div className="user-list-search-bar">
             <PiMagnifyingGlass className="search-icon" />
@@ -8,6 +8,10 @@ function SearchBar () {
                 type="text"
                 placeholder="Recherchez par un ID, prénom, mail, ou autre"
                 className="search-input"
+                value={value}
+                onChange={(e) => {
+                    changeValue(e.target.value)
+                }}
             />
         </div>
     )

@@ -5,6 +5,7 @@ import { API_BASE_URL } from "../../constants/Constants";
 import LikeCard from "../../components/LikeCard/LikeCard";
 import UserProfileExtended from "../../components/UserProfileExtended/UserProfileExtended";
 import ActionButtons from "../../components/ActionButtons/ActionButtons";
+import ActionButtonPremium from "../../components/ActionButtonPremium/ActionButtonPremium";
 
 function Likes() {
     const [likes, setLikes] = useState([]);
@@ -41,7 +42,7 @@ function Likes() {
             {showProfile && (
                 <div>
                     <UserProfileExtended userID={userIDExtended} setShowExtendProfile={setShowProfile} report={false}/>
-                    <ActionButtons/>
+                    <ActionButtonPremium currentUser={userIDExtended}/>
                 </div>
             )}
             {!showProfile && (

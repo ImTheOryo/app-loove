@@ -12,6 +12,7 @@ import ProfileBio from "../../components/ProfileBio/ProfileBio";
 import ProfileInterest from "../../components/ProfileInterest/ProfileInterest";
 import ProfileMusic from "../../components/ProfileMusic/ProfileMusic";
 import ProfileGeneralInfo from "../../components/ProfileGeneralInfo/ProfileGeneralInfo";
+import ProfileImages from "../../components/ProfileImages/ProfileImages";
 
 function ProfileSettings() {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ function ProfileSettings() {
     const [changeInfos, setChangeInfos] = useState(false);
     const [changeInterest, setChangeInterest] = useState(false);
     const [changeMusic, setChangeMusic] = useState(false);
+    const [changeImage, setChangeImage] = useState(false);
 
     const HandleBackButton = () => {
         navigate("/profile");
@@ -49,8 +51,12 @@ function ProfileSettings() {
                 <ProfileMusic key={Math.random()} changeMusic={changeMusic} setChangeMusic={setChangeMusic}/>
             )}
 
+            {changeImage && (
+                <ProfileImages changeImage={changeImage} setChangeImage={setChangeImage}/>
+            )}
 
-            <div className={`w-[95%] m-auto ${showProfile || changeBio || changePhotos || changeInfos || changeInterest || changeMusic ? 'hidden' : ''}`}>
+
+            <div className={`w-[95%] m-auto ${showProfile || changeBio || changePhotos || changeInfos || changeInterest || changeMusic || changeImage ? 'hidden' : ''}`}>
                 <div className="profile-header">
                     <button className="profile-btn-close" onClick={HandleBackButton}>
                         <HiMiniXMark/>
@@ -63,7 +69,10 @@ function ProfileSettings() {
                     </button>
                 </div>
                 <section className="w-[85%] m-auto text-left">
-                    <article className="setting-article">
+                    <article
+                        className="setting-article"
+                        onClick={() => setChangeImage(!changeImage)}
+                    >
                         <div>
                             <IoCamera className="text-3xl"/>
                             <h2>

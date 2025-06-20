@@ -3,11 +3,18 @@ import {useParams} from "react-router";
 import {useEffect, useState} from "react";
 import { FaPlus } from "react-icons/fa";
 import {API_BASE_URL} from "../../constants/Constants";
-import UserProfileExtended from "../../components/UserProfileExtended/UserProfileExtended";
 import AdminReportedProfile from "../../components/AdminReportedProfile/AdminReportedProfile";
+import AddAdminReport from "../../components/AddAdminReport/AddAdminReport";
+import {HiXMark} from "react-icons/hi2";
+import AdminChat from "../../components/AdminChat/AdminChat";
+import {toast} from "react-toastify";
 
 function ManageReport (){
     const [reportData, setReportData] = useState([]);
+    const [adminInCharge, setAdminInCharge] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [image, setImage] = useState("");
+    const [reload, setReload] = useState(false);
     const { report_id } = useParams();
 
     const reportStatus = [
@@ -27,6 +34,23 @@ function ManageReport (){
         { title: "Autre"},
     ];
 
+    const DeleteAdminToReport = async (adminID) => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/report/${report_id}/${adminID}`, {
+                method: "DELETE",
+                headers: { Token: localStorage.getItem("token") },
+            });
+            if (res.status === 200) {
+                GetReport();
+
+
+            }
+        } catch (error) {
+            toast.error("Erreur réseau lors de l'ajout");
+            console.error("Error adding admin to report:", error);
+        }
+    };
+
     const GetReport = async  () => {
         const res = await fetch(`${API_BASE_URL}/report/${report_id}`,{
             method: "GET",
@@ -36,17 +60,20 @@ function ManageReport (){
         if (res.status === 200) {
             const data = await res.json();
             setReportData(data.body[0]);
+            setAdminInCharge(data.body[1]);
+            setReload(true)
         }
     }
 
     useEffect(() => {
         GetReport()
-    }, []);
+    }, [reload]);
 
     return (
         <div>
             {isNaN(reportData) && (
                 <div className="p-6 bg-white rounded-xl space-y-8 w-full h-full">
+                    <AddAdminReport showModal={showModal} setShowModal={setShowModal} reportID={report_id} setReload={GetReport}/>
                     <header>
                         <div className="flex items-center justify-between ">
                             <h2 className="text-2xl font-semibold text-gray-800">
@@ -74,11 +101,13 @@ function ManageReport (){
                             </h4>
                             <div className="grid grid-cols-2 gap-2 m-auto">
                                 <div className="overflow-y-auto h-[485px] shadow-2xl p-1 rounded-2xl">
-                                    <AdminReportedProfile userID={reportData.reported}/>
+                                    <AdminReportedProfile userID={reportData.reported} setImage={setImage}/>
                                 </div>
 
                                 <div className='overflow-y-auto h-[485px] shadow-2xl p-1 rounded-2xl'>
-
+                                    {isNaN(image) && (
+                                        <AdminChat report_id={report_id} image={image}/>
+                                    )}
                                 </div>
 
                             </div>
@@ -93,15 +122,37 @@ function ManageReport (){
                                 </h4>
                                 <button
                                     className="flex items-center gap-1 text-sm text-color-my-red hover:underline"
+                                    onClick={() => {
+                                        setShowModal(!showModal)
+                                    }}
                                 >
                                     <FaPlus className="text-xs" /> Ajouter
                                 </button>
                             </div>
-                            <div className="h-full">
-
+                            <div className="h-full flex flex-col items-center">
+                                {Array.isArray(adminInCharge) && adminInCharge.length > 0 && (
+                                    adminInCharge.map((item) => (
+                                        <div key={item.id} className="mt-5 flex w-full justify-between bg-[#FFFFFF] rounded-2xl p-2 shadow-md">
+                                            <img src={`${API_BASE_URL}/upload/${item.image}`} className="w-[48px] h-[48px] rounded-full object-cover" alt="Admin Profile" />
+                                            <div className="">
+                                                <h2 className="font-nunito-regular font-bold">
+                                                    {item.name}
+                                                </h2>
+                                                <p className=" font-nunito-regular">
+                                                    {item.role}
+                                                </p>
+                                            </div>
+                                            <button
+                                                className="text-3xl text-color-my-red"
+                                                onClick={() => DeleteAdminToReport(item.id)}
+                                            >
+                                                <HiXMark/>
+                                            </button>
+                                        </div>
+                                    ))
+                                )}
                             </div>
                         </div>
-
                     </div>
                 </div>
             )}
