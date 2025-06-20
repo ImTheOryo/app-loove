@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../constants/Constants";
 import UserProfileExtended from "../UserProfileExtended/UserProfileExtended";
+import Spinner from "../Spinner/Spinner";
 
 function UserProfile({ showExtendProfile, setShowExtendProfile, userCount, setUserCount, setCurrentUser }) {
     const discovery = new DiscoveryService();
@@ -90,7 +91,7 @@ function UserProfile({ showExtendProfile, setShowExtendProfile, userCount, setUs
         );
     }
 
-    return <div>en cours</div>;
+    return <Spinner/>;
 }
 
 export default UserProfile;
