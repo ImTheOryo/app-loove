@@ -12,7 +12,7 @@ function ActionButtons({showExtendProfile, setShowExtendProfile, currentUser, us
     const discovery = new DiscoveryService();
     const auth = new AuthService();
     async function skipUser(){
-        // const res = await discovery.ActionUser("skip",  currentUser);
+        const res = await discovery.ActionUser("skip",  currentUser);
         setShowExtendProfile(false);
         const count = userCount + 1;
         setUserCount(count);
