@@ -57,14 +57,10 @@ function Admin() {
                         <GoShieldLock className="text-4xl"/>
                         <p>Modération</p>
                     </Link>
-                    <Link to="/administrateur/monetisation" className="admin-btn">
-                        <TbReportMoney className="text-4xl"/>
-                        <p>Monétisation</p>
-                    </Link>
                 </div>
             </div>
 
-            <div className="container-outlet">
+            <div className="container-outlet ">
                 <Outlet/>
             </div>
         </div>

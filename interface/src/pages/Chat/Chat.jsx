@@ -11,6 +11,7 @@ import Pusher from "pusher-js";
 import { ChatService } from "../../services/ChatService";
 import ReportModal from "../../components/ReportModal/ReportModal";
 import UserProfileExtended from "../../components/UserProfileExtended/UserProfileExtended";
+import Spinner from "../../components/Spinner/Spinner";
 
 function Chat() {
     const [messages, setMessages] = useState([]);
@@ -126,51 +127,57 @@ function Chat() {
 
     return (
         <div>
-            {showProfile ? (
-                <UserProfileExtended setShowExtendProfile={setShowProfile} userID={currentUserChatId} />
+            {!Array.isArray(messages) ? (
+                <Spinner/>
             ) : (
                 <div>
-                    <div className="chat-header">
-                        <Link to="/conversations">
-                            <IoChevronBackOutline className="text-5xl" />
-                        </Link>
-                        <div className="header-image" onClick={() => setShowProfile(!showProfile)}>
-                            <img src={`${API_BASE_URL}/upload/${image}`} alt="User" />
-                            <span>{firstName}</span>
+                    {showProfile ? (
+                        <UserProfileExtended setShowExtendProfile={setShowProfile} userID={currentUserChatId} />
+                    ) : (
+                        <div>
+                            <div className="chat-header">
+                                <Link to="/conversations">
+                                    <IoChevronBackOutline className="text-5xl" />
+                                </Link>
+                                <div className="header-image" onClick={() => setShowProfile(!showProfile)}>
+                                    <img src={`${API_BASE_URL}/upload/${image}`} alt="User" />
+                                    <span>{firstName}</span>
+                                </div>
+                                <button
+                                    className="header-report-btn"
+                                    onClick={() => setShowModal(!showModal)}
+                                >
+                                    <GrFlag className="text-red-600" />
+                                </button>
+                            </div>
+                            <section className="chat-section">{messages}</section>
+                            <div className="chat-input">
+                                <input
+                                    id="textInput"
+                                    className="flex-1 outline-none bg-transparent text-gray-600 placeholder-gray-400 px-4"
+                                    type="text"
+                                    name="message"
+                                    placeholder="Envoyer un message"
+                                    value={messageTyped}
+                                    onChange={(event) => setMessageTyped(event.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") sendMessage();
+                                    }}
+                                />
+                                <button
+                                    className="p-2 mr-2 self-center text-gray-400 hover:text-gray-600"
+                                    onClick={sendMessage}
+                                >
+                                    <FiSend />
+                                </button>
+                            </div>
+                            <ReportModal
+                                setShowModal={setShowModal}
+                                showModal={showModal}
+                                userID={currentUserChatId}
+                            />
                         </div>
-                        <button
-                            className="header-report-btn"
-                            onClick={() => setShowModal(!showModal)}
-                        >
-                            <GrFlag className="text-red-600" />
-                        </button>
-                    </div>
-                    <section className="chat-section">{messages}</section>
-                    <div className="chat-input">
-                        <input
-                            id="textInput"
-                            className="flex-1 outline-none bg-transparent text-gray-600 placeholder-gray-400 px-4"
-                            type="text"
-                            name="message"
-                            placeholder="Envoyer un message"
-                            value={messageTyped}
-                            onChange={(event) => setMessageTyped(event.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") sendMessage();
-                            }}
-                        />
-                        <button
-                            className="p-2 mr-2 self-center text-gray-400 hover:text-gray-600"
-                            onClick={sendMessage}
-                        >
-                            <FiSend />
-                        </button>
-                    </div>
-                    <ReportModal
-                        setShowModal={setShowModal}
-                        showModal={showModal}
-                        userID={currentUserChatId}
-                    />
+                    )}
                 </div>
             )}
         </div>

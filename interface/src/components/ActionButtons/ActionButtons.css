@@ -11,7 +11,7 @@
 
 #skip-btn {
     @apply bg-white text-[#E94057] ;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
     border: 2px solid #E94057;
 }
 
@@ -21,10 +21,10 @@
 
 #like-btn {
     @apply bg-[#E94057] text-white;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
 }
 
 #message-btn {
     @apply bg-white text-[#E94057];
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
 }

@@ -2,8 +2,9 @@ import "./AdminChat.css";
 import {API_BASE_URL} from "../../constants/Constants";
 import {useEffect, useState} from "react";
 import ChatBubbleReceiver from "../ChatBubbleReceiver/ChatBubbleReceiver";
+import ChatBubbleSender from "../ChatBubbleSender/ChatBubbleSender";
 
-function AdminChat ({ report_id, image }) {
+function AdminChat ({ report_id, image, reportedID }) {
     const [messages, setMessages] = useState([]);
 
     const GetReportedChat = async () => {
@@ -18,11 +19,19 @@ function AdminChat ({ report_id, image }) {
                 const newMessages = data.body.messages || [];
 
                 const messagesArray = newMessages.reverse().map((item) => {
-                    return <ChatBubbleReceiver
-                        key={item.id}
-                        image={image}
-                        data={item}
-                    />
+                   if (item.id_sender === reportedID){
+                       return <ChatBubbleReceiver
+                           key={item.id}
+                           image={image}
+                           data={item}
+                       />
+                   } else {
+                       return <ChatBubbleSender
+                           key={item.id}
+                           image={image}
+                           data={item}
+                       />
+                   }
                 });
 
                 setMessages(messagesArray);
